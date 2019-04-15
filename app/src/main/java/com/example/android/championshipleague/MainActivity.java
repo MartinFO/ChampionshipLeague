@@ -26,53 +26,54 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    // User has pressed a numeric key or the bull
+    // User has pressed a numeric key
     public void press1(View view) {
-        pressNumber("1");
+        postDartStatusPoints("1");
     }
 
     public void press2(View view) {
-        pressNumber("2");
+        postDartStatusPoints("2");
     }
 
     public void press3(View view) {
-        pressNumber("3");
+        postDartStatusPoints("3");
     }
 
     public void press4(View view) {
-        pressNumber("4");
+        postDartStatusPoints("4");
     }
 
     public void press5(View view) {
-        pressNumber("5");
+        postDartStatusPoints("5");
     }
 
     public void press6(View view) {
-        pressNumber("6");
+        postDartStatusPoints("6");
     }
 
     public void press7(View view) {
-        pressNumber("7");
+        postDartStatusPoints("7");
     }
 
     public void press8(View view) {
-        pressNumber("8");
+        postDartStatusPoints("8");
     }
 
     public void press9(View view) {
-        pressNumber("9");
+        postDartStatusPoints("9");
     }
 
     public void press0(View view) {
-        pressNumber("0");
+        postDartStatusPoints("0");
     }
 
+    // User has pressed the Bull key
     public void pressBull(View view) {
         current_keypad_string = "";
-        pressNumber("25");
+        postDartStatusPoints("B");
     }
 
-    public void pressNumber(String key_string) {
+    public void postDartStatusPoints(String key_string) {
         current_keypad_string = current_keypad_string + key_string;
         switch (int_current_dart) {
             case 1:
@@ -152,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 1
-        int_dart1_score = Integer.parseInt(dart1_points_string);
+        if (dart1_points_string.equals("B")) {int_dart1_score = 25;}
+        else { int_dart1_score = Integer.parseInt(dart1_points_string); }
 
         // Set the integer dart multiplier for dart 2
         switch (dart2_multiplier_string) {
@@ -170,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 2
-        int_dart2_score = Integer.parseInt(dart2_points_string);
+        if (dart2_points_string.equals("B")) {int_dart2_score = 25;}
+        else { int_dart2_score = Integer.parseInt(dart2_points_string); }
 
         // Set the integer dart multiplier for dart 3
         switch (dart3_multiplier_string) {
@@ -188,7 +191,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 3
-        int_dart3_score = Integer.parseInt(dart3_points_string);
+        if (dart3_points_string.equals("B")) {int_dart3_score = 25;}
+        else { int_dart3_score = Integer.parseInt(dart3_points_string); }
 
         // Compute total score for all three darts
         int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
