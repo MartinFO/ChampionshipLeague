@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
     String current_keypad_string = ""; // Holds the number entered on the keypad
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed a numeric key
     public void press1(View view) {
+        TextView bigX = findViewById(R.id.bigX);
+        bigX.setVisibility(View.VISIBLE);
         postDartStatusPoints("1");
     }
 
@@ -153,8 +157,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 1
-        if (dart1_points_string.equals("B")) {int_dart1_score = 25;}
-        else { int_dart1_score = Integer.parseInt(dart1_points_string); }
+        if (dart1_points_string.equals("B")) {
+            int_dart1_score = 25;
+        } else {
+            int_dart1_score = Integer.parseInt(dart1_points_string);
+        }
 
         // Set the integer dart multiplier for dart 2
         switch (dart2_multiplier_string) {
@@ -172,8 +179,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 2
-        if (dart2_points_string.equals("B")) {int_dart2_score = 25;}
-        else { int_dart2_score = Integer.parseInt(dart2_points_string); }
+        if (dart2_points_string.equals("B")) {
+            int_dart2_score = 25;
+        } else {
+            int_dart2_score = Integer.parseInt(dart2_points_string);
+        }
 
         // Set the integer dart multiplier for dart 3
         switch (dart3_multiplier_string) {
@@ -191,8 +201,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Set the integer dart score for dart 3
-        if (dart3_points_string.equals("B")) {int_dart3_score = 25;}
-        else { int_dart3_score = Integer.parseInt(dart3_points_string); }
+        if (dart3_points_string.equals("B")) {
+            int_dart3_score = 25;
+        } else {
+            int_dart3_score = Integer.parseInt(dart3_points_string);
+        }
 
         // Compute total score for all three darts
         int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
@@ -235,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pressAB (View view) {
+    public void pressAB(View view) {
         // Initialize variables for current turn
         dart1_multiplier_string = "S";
         dart1_points_string = "0";
@@ -258,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void pressReset (View view) {
+    public void pressReset(View view) {
         // Initialize variables for current turn
         dart1_multiplier_string = "S";
         dart1_points_string = "0";
@@ -268,11 +281,14 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "0";
         current_keypad_string = "";
         int_current_dart = 1;
+        // Hide the illegal entry indicator
+        TextView bigX = findViewById(R.id.bigX);
+        bigX.setVisibility(View.GONE);
         // Display initialized darts status
         displayDartsStatusLine();
     }
 
-    public void pressGameReset (View view) {
+    public void pressGameReset(View view) {
         // Initialize variables for current turn
         dart1_multiplier_string = "S";
         dart1_points_string = "0";

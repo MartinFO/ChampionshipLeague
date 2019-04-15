@@ -371,5 +371,22 @@
         app:layout_constraintLeft_toRightOf="@id/button_game_reset"
         app:layout_constraintRight_toRightOf="parent"/>
 
+    // Illegal entry indicator, e.g. for individual dart score 28
+    <TextView
+        android:id="@+id/bigX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="X"
+        android:textSize="300sp"
+        android:elevation="2dp"
+        android:visibility="gone"
+        />
+
+
+
 
 </android.support.constraint.ConstraintLayout>
