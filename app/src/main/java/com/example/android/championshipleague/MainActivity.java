@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     int int_current_dart = 1; // Can be 1, 2, or 3
     int int_teamA_score = 301;
     int int_teamB_score = 301;
+    boolean bool_illegal_entry = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +29,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    // User has pressed a numeric key
-    public void press1(View view) {
+    public void illegalEntry() {
         TextView bigX = findViewById(R.id.bigX);
         bigX.setVisibility(View.VISIBLE);
+    }
+
+    // User has pressed a numeric key
+    public void press1(View view) {
         postDartStatusPoints("1");
     }
 
@@ -79,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void postDartStatusPoints(String key_string) {
         current_keypad_string = current_keypad_string + key_string;
+        if (!(current_keypad_string.equals("B") || Integer.parseInt(current_keypad_string) <= 20)) {
+            bool_illegal_entry = true;
+        }
         switch (int_current_dart) {
             case 1:
                 dart1_points_string = current_keypad_string;
@@ -132,120 +139,124 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
-        int int_dart1_multiplier = 1;
-        int int_dart1_score = 0;
-        int int_dart2_multiplier = 1;
-        int int_dart2_score = 0;
-        int int_dart3_multiplier = 1;
-        int int_dart3_score = 0;
-        int int_total_score = 0;
+        // Do not perform the post if the illegal entry notification (bigX) is not visible.
+        TextView bigX = findViewById(R.id.bigX);
+        if (bigX.getVisibility() == View.GONE) { // bigX is not visible, so proceed with the post.
+            int int_dart1_multiplier = 1;
+            int int_dart1_score = 0;
+            int int_dart2_multiplier = 1;
+            int int_dart2_score = 0;
+            int int_dart3_multiplier = 1;
+            int int_dart3_score = 0;
+            int int_total_score = 0;
 
-        // Compute total score for all three darts
-        // Set the integer dart multiplier for dart 1
-        switch (dart1_multiplier_string) {
-            case "S":
-                int_dart1_multiplier = 1;
-                break;
-            case "D":
-                int_dart1_multiplier = 2;
-                break;
-            case "T":
-                int_dart1_multiplier = 3;
-                break;
-            default:
+            // Compute total score for all three darts
+            // Set the integer dart multiplier for dart 1
+            switch (dart1_multiplier_string) {
+                case "S":
+                    int_dart1_multiplier = 1;
+                    break;
+                case "D":
+                    int_dart1_multiplier = 2;
+                    break;
+                case "T":
+                    int_dart1_multiplier = 3;
+                    break;
+                default:
+                    errorSignal();
+                    break;
+            }
+            // Set the integer dart score for dart 1
+            if (dart1_points_string.equals("B")) {
+                int_dart1_score = 25;
+            } else {
+                int_dart1_score = Integer.parseInt(dart1_points_string);
+            }
+
+            // Set the integer dart multiplier for dart 2
+            switch (dart2_multiplier_string) {
+                case "S":
+                    int_dart2_multiplier = 1;
+                    break;
+                case "D":
+                    int_dart2_multiplier = 2;
+                    break;
+                case "T":
+                    int_dart2_multiplier = 3;
+                    break;
+                default:
+                    errorSignal();
+                    break;
+            }
+            // Set the integer dart score for dart 2
+            if (dart2_points_string.equals("B")) {
+                int_dart2_score = 25;
+            } else {
+                int_dart2_score = Integer.parseInt(dart2_points_string);
+            }
+
+            // Set the integer dart multiplier for dart 3
+            switch (dart3_multiplier_string) {
+                case "S":
+                    int_dart3_multiplier = 1;
+                    break;
+                case "D":
+                    int_dart3_multiplier = 2;
+                    break;
+                case "T":
+                    int_dart3_multiplier = 3;
+                    break;
+                default:
+                    errorSignal();
+                    break;
+            }
+            // Set the integer dart score for dart 3
+            if (dart3_points_string.equals("B")) {
+                int_dart3_score = 25;
+            } else {
+                int_dart3_score = Integer.parseInt(dart3_points_string);
+            }
+
+            // Compute total score for all three darts
+            int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
+
+            // Compute the new score for the current team and post the score
+            switch (current_team_string) {
+                case "Team A":
+                    int_teamA_score = int_teamA_score - int_total_score;
+                    TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
+                    teamA_score_TextView.setText(Integer.toString(int_teamA_score));
+                    break;
+                case "Team B":
+                    int_teamB_score = int_teamB_score - int_total_score;
+                    TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
+                    teamB_score_TextView.setText(Integer.toString(int_teamB_score));
+                    break;
+                default:
+                    errorSignal();
+                    break;
+            }
+            // Initialize the variables for the next turn
+            dart1_multiplier_string = "S";
+            dart1_points_string = "0";
+            dart2_multiplier_string = "S";
+            dart2_points_string = "0";
+            dart3_multiplier_string = "S";
+            dart3_points_string = "0";
+            current_keypad_string = "";
+            int_current_dart = 1;
+            displayDartsStatusLine();
+
+            // Switch to the other team
+            if (TextUtils.equals(current_team_string, "Team A")) {
+                current_team_string = "Team B";
+            } else if (TextUtils.equals(current_team_string, "Team B")) {
+                current_team_string = "Team A";
+            } else {
                 errorSignal();
-                break;
-        }
-        // Set the integer dart score for dart 1
-        if (dart1_points_string.equals("B")) {
-            int_dart1_score = 25;
-        } else {
-            int_dart1_score = Integer.parseInt(dart1_points_string);
-        }
+            }
 
-        // Set the integer dart multiplier for dart 2
-        switch (dart2_multiplier_string) {
-            case "S":
-                int_dart2_multiplier = 1;
-                break;
-            case "D":
-                int_dart2_multiplier = 2;
-                break;
-            case "T":
-                int_dart2_multiplier = 3;
-                break;
-            default:
-                errorSignal();
-                break;
         }
-        // Set the integer dart score for dart 2
-        if (dart2_points_string.equals("B")) {
-            int_dart2_score = 25;
-        } else {
-            int_dart2_score = Integer.parseInt(dart2_points_string);
-        }
-
-        // Set the integer dart multiplier for dart 3
-        switch (dart3_multiplier_string) {
-            case "S":
-                int_dart3_multiplier = 1;
-                break;
-            case "D":
-                int_dart3_multiplier = 2;
-                break;
-            case "T":
-                int_dart3_multiplier = 3;
-                break;
-            default:
-                errorSignal();
-                break;
-        }
-        // Set the integer dart score for dart 3
-        if (dart3_points_string.equals("B")) {
-            int_dart3_score = 25;
-        } else {
-            int_dart3_score = Integer.parseInt(dart3_points_string);
-        }
-
-        // Compute total score for all three darts
-        int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
-
-        // Compute the new score for the current team and post the score
-        switch (current_team_string) {
-            case "Team A":
-                int_teamA_score = int_teamA_score - int_total_score;
-                TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
-                teamA_score_TextView.setText(Integer.toString(int_teamA_score));
-                break;
-            case "Team B":
-                int_teamB_score = int_teamB_score - int_total_score;
-                TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
-                teamB_score_TextView.setText(Integer.toString(int_teamB_score));
-                break;
-            default:
-                errorSignal();
-                break;
-        }
-        // Initialize the variables for the next turn
-        dart1_multiplier_string = "S";
-        dart1_points_string = "0";
-        dart2_multiplier_string = "S";
-        dart2_points_string = "0";
-        dart3_multiplier_string = "S";
-        dart3_points_string = "0";
-        current_keypad_string = "";
-        int_current_dart = 1;
-        displayDartsStatusLine();
-
-        // Switch to the other team
-        if (TextUtils.equals(current_team_string, "Team A")) {
-            current_team_string = "Team B";
-        } else if (TextUtils.equals(current_team_string, "Team B")) {
-            current_team_string = "Team A";
-        } else {
-            errorSignal();
-        }
-
     }
 
     public void pressAB(View view) {
@@ -331,6 +342,10 @@ public class MainActivity extends AppCompatActivity {
         dart_3_multiplier_TextView.setText(dart3_multiplier_string);
         TextView dart3_points_TextView = (TextView) findViewById(R.id.text_dart_3_points);
         dart3_points_TextView.setText(dart3_points_string);
+        if (bool_illegal_entry == true) {
+            illegalEntry();
+            bool_illegal_entry = false;
+        }
     }
 
     public void errorSignal() {
