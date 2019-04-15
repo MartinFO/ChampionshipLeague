@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:padding="4dp"
     tools:context=".MainActivity">
 
@@ -380,13 +381,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
         android:text="X"
         android:textSize="300sp"
-        android:elevation="2dp"
+        android:elevation="10dp"
         android:visibility="gone"
         />
-
-
-
 
 </android.support.constraint.ConstraintLayout>
