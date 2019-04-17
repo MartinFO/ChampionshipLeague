@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int int_teamA_score = 301;
     int int_teamB_score = 301;
     boolean bool_illegal_entry = false;
+    boolean bool_triple_score = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
-        // Do not perform the post if the illegal entry notification (bigX) is not visible.
+        // Do not perform the post if the illegal entry notification (bigX) is visible.
         TextView bigX = findViewById(R.id.bigX);
         if (bigX.getVisibility() == View.GONE) { // bigX is not visible, so proceed with the post.
             int int_dart1_multiplier = 1;
@@ -245,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             dart3_points_string = "0";
             current_keypad_string = "";
             int_current_dart = 1;
+            bool_triple_score = false;
             displayDartsStatusLine();
 
             // Switch to the other team
@@ -269,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "0";
         current_keypad_string = "";
         int_current_dart = 1;
+        bool_triple_score = false;
         // Display initialized darts status
         displayDartsStatusLine();
         // Switch to the other team
@@ -292,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "0";
         current_keypad_string = "";
         int_current_dart = 1;
+        bool_triple_score = false;
         // Hide the illegal entry indicator
         TextView bigX = findViewById(R.id.bigX);
         bigX.setVisibility(View.GONE);
@@ -309,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "0";
         current_keypad_string = "";
         int_current_dart = 1;
+        bool_triple_score = false;
         // Display initialized darts status
         displayDartsStatusLine();
         // Initialize both teams' scores
