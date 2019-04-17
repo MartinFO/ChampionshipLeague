@@ -30,9 +30,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void initializeVariables() {
+        dart1_multiplier_string = "S";
+        dart1_points_string = "0";
+        dart2_multiplier_string = "S";
+        dart2_points_string = "0";
+        dart3_multiplier_string = "S";
+        dart3_points_string = "0";
+        current_keypad_string = "";
+        int_current_dart = 1;
+        bool_triple_score = false;
+    }
+
     public void illegalEntry() {
-        TextView bigX = findViewById(R.id.bigX);
-        bigX.setVisibility(View.VISIBLE);
+        TextView invalid = findViewById(R.id.invalid);
+        invalid.setVisibility(View.VISIBLE);
     }
 
     // User has pressed a numeric key
@@ -83,8 +95,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void postDartStatusPoints(String key_string) {
+        // Add the button press to the current keypad string
         current_keypad_string = current_keypad_string + key_string;
+        // The current keypad string must be a "B" (=bull) or a number less than or equal to 20 to be valid.
+        // Flag the entry as invalid if these conditions are not met.
         if (!(current_keypad_string.equals("B") || Integer.parseInt(current_keypad_string) <= 20)) {
+            bool_illegal_entry = true;
+        }
+        // Triple bull is invalid; flag it as invalid if that is the case
+        if (current_keypad_string.equals("B") && bool_triple_score == true) {
             bool_illegal_entry = true;
         }
         switch (int_current_dart) {
@@ -114,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressT(View view) {
+        bool_triple_score = true;
         pressMultiplier("T");
     }
 
@@ -140,9 +160,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
-        // Do not perform the post if the illegal entry notification (bigX) is visible.
-        TextView bigX = findViewById(R.id.bigX);
-        if (bigX.getVisibility() == View.GONE) { // bigX is not visible, so proceed with the post.
+        boolean bool_perform_post = true;
+        // Do not perform the post if the illegal entry notification (invalid) is visible.
+        TextView invalid = findViewById(R.id.invalid);
+        if (invalid.getVisibility() == View.VISIBLE) {
+            bool_perform_post = false;
+        }
+        // Proceed with post if conditions allow
+        if (bool_perform_post) { // Proceed with the post.
+            // Declare and initialize local variables
             int int_dart1_multiplier = 1;
             int int_dart1_score = 0;
             int int_dart2_multiplier = 1;
@@ -238,17 +264,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             // Initialize the variables for the next turn
-            dart1_multiplier_string = "S";
-            dart1_points_string = "0";
-            dart2_multiplier_string = "S";
-            dart2_points_string = "0";
-            dart3_multiplier_string = "S";
-            dart3_points_string = "0";
-            current_keypad_string = "";
-            int_current_dart = 1;
-            bool_triple_score = false;
+            initializeVariables();
+            // Display the new information on the darts status line
             displayDartsStatusLine();
-
             // Switch to the other team
             if (TextUtils.equals(current_team_string, "Team A")) {
                 current_team_string = "Team B";
@@ -263,15 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void pressAB(View view) {
         // Initialize variables for current turn
-        dart1_multiplier_string = "S";
-        dart1_points_string = "0";
-        dart2_multiplier_string = "S";
-        dart2_points_string = "0";
-        dart3_multiplier_string = "S";
-        dart3_points_string = "0";
-        current_keypad_string = "";
-        int_current_dart = 1;
-        bool_triple_score = false;
+        initializeVariables();
         // Display initialized darts status
         displayDartsStatusLine();
         // Switch to the other team
@@ -287,33 +297,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void pressReset(View view) {
         // Initialize variables for current turn
-        dart1_multiplier_string = "S";
-        dart1_points_string = "0";
-        dart2_multiplier_string = "S";
-        dart2_points_string = "0";
-        dart3_multiplier_string = "S";
-        dart3_points_string = "0";
-        current_keypad_string = "";
-        int_current_dart = 1;
-        bool_triple_score = false;
+        initializeVariables();
         // Hide the illegal entry indicator
-        TextView bigX = findViewById(R.id.bigX);
-        bigX.setVisibility(View.GONE);
+        TextView invalid = findViewById(R.id.invalid);
+        invalid.setVisibility(View.GONE);
         // Display initialized darts status
         displayDartsStatusLine();
     }
 
     public void pressGameReset(View view) {
         // Initialize variables for current turn
-        dart1_multiplier_string = "S";
-        dart1_points_string = "0";
-        dart2_multiplier_string = "S";
-        dart2_points_string = "0";
-        dart3_multiplier_string = "S";
-        dart3_points_string = "0";
-        current_keypad_string = "";
-        int_current_dart = 1;
-        bool_triple_score = false;
+        initializeVariables();
         // Display initialized darts status
         displayDartsStatusLine();
         // Initialize both teams' scores

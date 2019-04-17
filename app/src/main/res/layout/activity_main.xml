@@ -372,20 +372,37 @@
         app:layout_constraintLeft_toRightOf="@id/button_game_reset"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    // Illegal entry indicator, e.g. for individual dart score 28
+    // Team has busted by exceeding their remaining points
     <TextView
-        android:id="@+id/bigX"
+        android:id="@+id/bust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_7"
+        app:layout_constraintBottom_toBottomOf="@id/button_0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="100dp"
-        android:text="X"
-        android:textSize="300sp"
+        android:text="BUST"
+        android:textSize="100sp"
+        android:textColor="#B00020"
         android:elevation="10dp"
         android:visibility="gone"
         />
+
+    // Illegal entry indicator, for dart scores > 20 or triple bull
+    <TextView
+        android:id="@+id/invalid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/button_7"
+        app:layout_constraintBottom_toBottomOf="@id/button_0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="INVALID"
+        android:textSize="100sp"
+        android:textColor="#B00020"
+        android:elevation="10dp"
+        android:visibility="gone"
+        />
+
 
 </android.support.constraint.ConstraintLayout>
