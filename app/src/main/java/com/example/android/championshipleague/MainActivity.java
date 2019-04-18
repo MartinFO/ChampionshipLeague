@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -42,19 +43,91 @@ public class MainActivity extends AppCompatActivity {
         bool_triple_score = false;
     }
 
+    public void disableButtons () {
+        Button button = findViewById(R.id.button_1);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_2);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_3);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_4);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_5);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_6);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_7);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_8);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_9);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_0);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_bull);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_post);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_toggle_a_b);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_S);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_D);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_T);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_reset);
+        button.setEnabled(false);
+
+    }
+
+    public void enableButtons () {
+        Button button = findViewById(R.id.button_1);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_2);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_3);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_4);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_5);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_6);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_7);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_8);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_9);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_0);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_bull);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_post);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_toggle_a_b);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_S);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_D);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_T);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_reset);
+        button.setEnabled(true);
+
+    }
+
     public void illegalEntry() {
         TextView invalid = findViewById(R.id.invalid);
         invalid.setVisibility(View.VISIBLE);
     }
 
     // User has pressed a numeric key
-    public void press1(View view) {
-        postDartStatusPoints("1");
-    }
+    public void press1(View view) { postDartStatusPoints("1"); }
 
-    public void press2(View view) {
-        postDartStatusPoints("2");
-    }
+    public void press2(View view) { postDartStatusPoints("2"); }
 
     public void press3(View view) {
         postDartStatusPoints("3");
