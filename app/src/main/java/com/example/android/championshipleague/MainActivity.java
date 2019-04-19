@@ -6,24 +6,21 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    String current_keypad_string = ""; // Holds the number entered on the keypad
-    String dart1_multiplier_string = "S";
-    String dart1_points_string = "0";
-    String dart2_multiplier_string = "S";
-    String dart2_points_string = "0";
-    String dart3_multiplier_string = "S";
-    String dart3_points_string = "0";
-    String current_team_string = "Team A"; // Can be "Team A" or "Team B"
-    int int_current_dart = 1; // Can be 1, 2, or 3
-    int int_teamA_score = 301;
-    int int_teamB_score = 301;
+    private String current_keypad_string = ""; // Holds the number entered on the keypad
+    private String dart1_multiplier_string = "S";
+    private String dart1_points_string = "0";
+    private String dart2_multiplier_string = "S";
+    private String dart2_points_string = "0";
+    private String dart3_multiplier_string = "S";
+    private String dart3_points_string = "0";
+    private String current_team_string = "Team A"; // Can be "Team A" or "Team B"
+    private int int_current_dart = 1; // Can be 1, 2, or 3
+    private int int_teamA_score = 301;
+    private int int_teamB_score = 301;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void initializeVariables() {
+    private void initializeVariables() {
         dart1_multiplier_string = "S";
         dart1_points_string = "0";
         dart2_multiplier_string = "S";
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(false);
     }
 
-    public void disableButtons() {
+    private void disableNumericKeys() {
         Button button = findViewById(R.id.button_1);
         button.setEnabled(false);
         button = findViewById(R.id.button_2);
@@ -71,48 +68,9 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(false);
         button = findViewById(R.id.button_0);
         button.setEnabled(false);
-        button = findViewById(R.id.button_bull);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_post);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_toggle_a_b);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_S);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_D);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_T);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_reset);
-        button.setEnabled(false);
-
     }
 
-    public void disableNumericKeys() {
-        Button button = findViewById(R.id.button_1);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_2);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_3);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_4);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_5);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_6);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_7);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_8);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_9);
-        button.setEnabled(false);
-        button = findViewById(R.id.button_0);
-        button.setEnabled(false);
-
-    }
-
-    public void enableButtons() {
+    private void enableButtons() {
         Button button = findViewById(R.id.button_1);
         button.setEnabled(true);
         button = findViewById(R.id.button_2);
@@ -147,10 +105,9 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(true);
         button = findViewById(R.id.button_reset);
         button.setEnabled(true);
-
     }
 
-    public void enableNumericKeys() {
+    private void enableNumericKeys() {
         Button button = findViewById(R.id.button_1);
         button.setEnabled(true);
         button = findViewById(R.id.button_2);
@@ -171,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(true);
         button = findViewById(R.id.button_0);
         button.setEnabled(true);
-
     }
 
 
@@ -251,13 +207,10 @@ public class MainActivity extends AppCompatActivity {
         postDartStatusPoints("B");
     }
 
-    public void postDartStatusPoints(String key_string) {
+    private void postDartStatusPoints(String key_string) {
         // Disable the A/B key
         Button button = findViewById(R.id.button_toggle_a_b);
         button.setEnabled(false);
-        // Enable the Post key
-        button = findViewById(R.id.button_post);
-        button.setEnabled(true);
 
         // Add the button press to the current keypad string
         current_keypad_string = current_keypad_string + key_string;
@@ -275,6 +228,10 @@ public class MainActivity extends AppCompatActivity {
                 dart1_points_string = "X";
                 break;
         }
+        // Enable the Post key
+        button = findViewById(R.id.button_post);
+        button.setEnabled(true);
+        // Display the darts status line
         displayDartsStatusLine();
     }
 
@@ -300,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
         pressMultiplier("T");
     }
 
-    public void pressMultiplier(String multiplier_string) {
+    private void pressMultiplier(String multiplier_string) {
         // Disable the A/B key
         Button button = findViewById(R.id.button_toggle_a_b);
         button.setEnabled(false);
@@ -338,13 +295,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
+        // Declare and initialize local variables
         int int_dart1_multiplier = 1;
-        int int_dart1_score = 0;
+        int int_dart1_score;
         int int_dart2_multiplier = 1;
-        int int_dart2_score = 0;
+        int int_dart2_score;
         int int_dart3_multiplier = 1;
-        int int_dart3_score = 0;
-        int int_total_score = 0;
+        int int_dart3_score;
+        int int_total_score;
 
         // Compute total score for all three darts
         // Set the integer dart multiplier for dart 1
@@ -420,12 +378,12 @@ public class MainActivity extends AppCompatActivity {
         switch (current_team_string) {
             case "Team A":
                 int_teamA_score = int_teamA_score - int_total_score;
-                TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
+                TextView teamA_score_TextView = findViewById(R.id.scoreA);
                 teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
                 break;
             case "Team B":
                 int_teamB_score = int_teamB_score - int_total_score;
-                TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
+                TextView teamB_score_TextView = findViewById(R.id.scoreB);
                 teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%1d",int_teamB_score));
                 break;
             default:
@@ -479,10 +437,10 @@ public class MainActivity extends AppCompatActivity {
         int_teamA_score = 301;
         int_teamB_score = 301;
         // Post the new score for team A
-        TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
+        TextView teamA_score_TextView = findViewById(R.id.scoreA);
         teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
         // Post the new score for team B
-        TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
+        TextView teamB_score_TextView = findViewById(R.id.scoreB);
         teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamB_score));
         // Let Team A take the first turn
         current_team_string = "Team A";
@@ -492,30 +450,30 @@ public class MainActivity extends AppCompatActivity {
     // Display entire darts status line
     private void displayDartsStatusLine() {
         // Display dart 1 multiplier and points
-        TextView dart_1_multiplier_TextView = (TextView) findViewById(R.id.text_dart_1_multiplier);
+        TextView dart_1_multiplier_TextView = findViewById(R.id.text_dart_1_multiplier);
         dart_1_multiplier_TextView.setText(dart1_multiplier_string);
-        TextView dart1_points_TextView = (TextView) findViewById(R.id.text_dart_1_points);
+        TextView dart1_points_TextView = findViewById(R.id.text_dart_1_points);
         dart1_points_TextView.setText(dart1_points_string);
         // Display dart 2 multiplier and points
-        TextView dart_2_multiplier_TextView = (TextView) findViewById(R.id.text_dart_2_multiplier);
+        TextView dart_2_multiplier_TextView = findViewById(R.id.text_dart_2_multiplier);
         dart_2_multiplier_TextView.setText(dart2_multiplier_string);
-        TextView dart2_points_TextView = (TextView) findViewById(R.id.text_dart_2_points);
+        TextView dart2_points_TextView = findViewById(R.id.text_dart_2_points);
         dart2_points_TextView.setText(dart2_points_string);
         // Display dart 3 multiplier and points
-        TextView dart_3_multiplier_TextView = (TextView) findViewById(R.id.text_dart_3_multiplier);
+        TextView dart_3_multiplier_TextView = findViewById(R.id.text_dart_3_multiplier);
         dart_3_multiplier_TextView.setText(dart3_multiplier_string);
-        TextView dart3_points_TextView = (TextView) findViewById(R.id.text_dart_3_points);
+        TextView dart3_points_TextView = findViewById(R.id.text_dart_3_points);
         dart3_points_TextView.setText(dart3_points_string);
 
     }
 
-    public void errorSignal() {
+    private void errorSignal() {
         // Signals an error by changing "Team A" and "Team B" to "Error"
         // Error is most likely an unexpected default in a case statement
         String error_string = "Error";
-        TextView error_A_TextView = (TextView) findViewById(R.id.teamA);
+        TextView error_A_TextView = findViewById(R.id.teamA);
         error_A_TextView.setText(error_string);
-        TextView error_B_TextView = (TextView) findViewById(R.id.teamB);
+        TextView error_B_TextView = findViewById(R.id.teamB);
         error_B_TextView.setText(error_string);
 
     }

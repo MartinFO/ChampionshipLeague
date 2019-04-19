@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Championship League</string>
+    <string name="team_A_name">Team A</string>
+    <string name="team_B_name">Team B</string>
+    <string name="starting_score">301</string>
+    <string name="first_dart_label">1:</string>
+    <string name="second_dart_label">2:</string>
+    <string name="third_dart_label">3:</string>
+    <string name="initial_multiplier">S</string>
+    <string name="initial_score">0</string>
+    <string name="key_1">1</string>
+    <string name="key_2">2</string>
+    <string name="key_3">3</string>
+    <string name="key_4">4</string>
+    <string name="key_5">5</string>
+    <string name="key_6">6</string>
+    <string name="key_7">7</string>
+    <string name="key_8">8</string>
+    <string name="key_9">9</string>
+    <string name="key_0">0</string>
+    <string name="key_bull">bull</string>
+    <string name="key_post">post</string>
+    <string name="key_AB">A/B</string>
+    <string name="key_S">S</string>
+    <string name="key_D">D</string>
+    <string name="key_T">T</string>
+    <string name="key_reset">reset</string>
+    <string name="key_game_reset">game reset</string>
+    <string name="bust_message">bust</string>
 </resources>
