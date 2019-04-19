@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     String current_keypad_string = ""; // Holds the number entered on the keypad
@@ -22,12 +24,15 @@ public class MainActivity extends AppCompatActivity {
     int int_current_dart = 1; // Can be 1, 2, or 3
     int int_teamA_score = 301;
     int int_teamB_score = 301;
-    boolean bool_illegal_entry = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Enable the Post key
+        Button button = findViewById(R.id.button_post);
+        button.setEnabled(false);
+
     }
 
     public void initializeVariables() {
@@ -40,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         current_keypad_string = "";
         int_current_dart = 1;
         enableButtons();
-        TextView invalid = findViewById(R.id.invalid);
-        invalid.setVisibility(View.GONE);
+        // Disable Post button
+        Button button = findViewById(R.id.button_post);
+        button.setEnabled(false);
     }
 
     public void disableButtons() {
@@ -168,10 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void illegalEntry() {
-        TextView invalid = findViewById(R.id.invalid);
-        invalid.setVisibility(View.VISIBLE);
-    }
 
     // User has pressed a numeric key
     public void press1(View view) {
@@ -244,19 +246,22 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed the Bull key
     public void pressBull(View view) {
+        disableNumericKeys();
         current_keypad_string = "";
         postDartStatusPoints("B");
     }
 
     public void postDartStatusPoints(String key_string) {
+        // Disable the A/B key
+        Button button = findViewById(R.id.button_toggle_a_b);
+        button.setEnabled(false);
+        // Enable the Post key
+        button = findViewById(R.id.button_post);
+        button.setEnabled(true);
+
         // Add the button press to the current keypad string
         current_keypad_string = current_keypad_string + key_string;
-        // The current keypad string must be a "B" (=bull) or a number less than or equal to 20 to be valid.
-        // Flag the entry as invalid if these conditions are not met.
-        if (!(current_keypad_string.equals("B") || Integer.parseInt(current_keypad_string) <= 20)) {
-            bool_illegal_entry = true;
-        }
-       switch (int_current_dart) {
+        switch (int_current_dart) {
             case 1:
                 dart1_points_string = current_keypad_string;
                 break;
@@ -296,6 +301,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressMultiplier(String multiplier_string) {
+        // Disable the A/B key
+        Button button = findViewById(R.id.button_toggle_a_b);
+        button.setEnabled(false);
+        // Disable the Post key
+        button = findViewById(R.id.button_post);
+        button.setEnabled(false);
         enableNumericKeys();
         if (!current_keypad_string.isEmpty()) {
             int_current_dart = int_current_dart + 1;
@@ -310,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 dart3_multiplier_string = multiplier_string;
                 // Disable the multiplier keys
-                Button button = findViewById(R.id.button_S);
+                button = findViewById(R.id.button_S);
                 button.setEnabled(false);
                 button = findViewById(R.id.button_D);
                 button.setEnabled(false);
@@ -410,12 +421,12 @@ public class MainActivity extends AppCompatActivity {
             case "Team A":
                 int_teamA_score = int_teamA_score - int_total_score;
                 TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
-                teamA_score_TextView.setText(Integer.toString(int_teamA_score));
+                teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
                 break;
             case "Team B":
                 int_teamB_score = int_teamB_score - int_total_score;
                 TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
-                teamB_score_TextView.setText(Integer.toString(int_teamB_score));
+                teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%1d",int_teamB_score));
                 break;
             default:
                 errorSignal();
@@ -455,7 +466,6 @@ public class MainActivity extends AppCompatActivity {
     public void pressReset(View view) {
         // Initialize variables for current turn
         initializeVariables();
-        // Hide the illegal entry indicator
         // Display initialized darts status
         displayDartsStatusLine();
     }
@@ -468,12 +478,12 @@ public class MainActivity extends AppCompatActivity {
         // Initialize both teams' scores
         int_teamA_score = 301;
         int_teamB_score = 301;
-        // Post the new score for dart A
+        // Post the new score for team A
         TextView teamA_score_TextView = (TextView) findViewById(R.id.scoreA);
-        teamA_score_TextView.setText(Integer.toString(int_teamA_score));
-        // Post the new score for dart B
+        teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
+        // Post the new score for team B
         TextView teamB_score_TextView = (TextView) findViewById(R.id.scoreB);
-        teamB_score_TextView.setText(Integer.toString(int_teamB_score));
+        teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamB_score));
         // Let Team A take the first turn
         current_team_string = "Team A";
     }
@@ -496,15 +506,7 @@ public class MainActivity extends AppCompatActivity {
         dart_3_multiplier_TextView.setText(dart3_multiplier_string);
         TextView dart3_points_TextView = (TextView) findViewById(R.id.text_dart_3_points);
         dart3_points_TextView.setText(dart3_points_string);
-        if (bool_illegal_entry == true) {
-            illegalEntry();
-            disableButtons();
-            // Enable the Reset button
-            Button button = findViewById(R.id.button_reset);
-            button.setEnabled(true);
-            // Reset the illegal entry flag
-            bool_illegal_entry = false;
-        }
+
     }
 
     public void errorSignal() {
