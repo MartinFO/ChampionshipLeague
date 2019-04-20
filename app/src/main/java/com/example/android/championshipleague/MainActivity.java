@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initializeVariables() {
+    private void initializeVariablesForNextTurn() {
         dart1_multiplier_string = "S";
         dart1_points_string = "0";
         dart2_multiplier_string = "S";
@@ -41,10 +42,13 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "0";
         current_keypad_string = "";
         int_current_dart = 1;
-        enableButtons();
+        enableAllButtons();
         // Disable Post button
-        Button button = findViewById(R.id.button_post);
-        button.setEnabled(false);
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(false);
+        // Hide the "BUST" message for exceeding the remaining points
+        TextView bust_TextView = findViewById(R.id.bust);
+        bust_TextView.setVisibility(View.GONE);
     }
 
     private void disableNumericKeys() {
@@ -70,7 +74,46 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(false);
     }
 
-    private void enableButtons() {
+    private void disableAllButtons() {
+        Button button = findViewById(R.id.button_1);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_2);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_3);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_4);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_5);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_6);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_7);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_8);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_9);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_0);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_bull);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_post);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_toggle_a_b);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_S);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_D);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_T);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_reset);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_game_reset);
+        button.setEnabled(false);
+    }
+
+    private void enableAllButtons() {
         Button button = findViewById(R.id.button_1);
         button.setEnabled(true);
         button = findViewById(R.id.button_2);
@@ -104,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button_T);
         button.setEnabled(true);
         button = findViewById(R.id.button_reset);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_game_reset);
         button.setEnabled(true);
     }
 
@@ -302,7 +347,11 @@ public class MainActivity extends AppCompatActivity {
         int int_dart2_score;
         int int_dart3_multiplier = 1;
         int int_dart3_score;
+        int int_temp_score;
         int int_total_score;
+        // bust_TextView is used to indicate that the darts total exceeds the player's score
+        TextView bust_TextView = findViewById(R.id.bust);
+
 
         // Compute total score for all three darts
         // Set the integer dart multiplier for dart 1
@@ -374,40 +423,62 @@ public class MainActivity extends AppCompatActivity {
         // Compute total score for all three darts
         int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
 
+
         // Compute the new score for the current team and post the score
         switch (current_team_string) {
             case "Team A":
-                int_teamA_score = int_teamA_score - int_total_score;
-                TextView teamA_score_TextView = findViewById(R.id.scoreA);
-                teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
+                int_temp_score = int_teamA_score - int_total_score;
+                if (int_temp_score < 0) {
+                    bust_TextView.setVisibility(View.VISIBLE);
+                    current_team_string = "Team B";
+
+                } else {
+                    int_teamA_score = int_teamA_score - int_total_score;
+                    TextView teamA_score_TextView = findViewById(R.id.scoreA);
+                    teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
+                }
                 break;
             case "Team B":
-                int_teamB_score = int_teamB_score - int_total_score;
-                TextView teamB_score_TextView = findViewById(R.id.scoreB);
-                teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%1d",int_teamB_score));
+                int_temp_score = int_teamB_score - int_total_score;
+                if (int_temp_score < 0) {
+                    bust_TextView.setVisibility(View.VISIBLE);
+                    current_team_string = "Team A";
+
+                } else {
+                    int_teamB_score = int_teamB_score - int_total_score;
+                    TextView teamB_score_TextView = findViewById(R.id.scoreB);
+                    teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%1d", int_teamB_score));
+                }
                 break;
             default:
                 errorSignal();
                 break;
         }
-        // Initialize the variables for the next turn
-        initializeVariables();
-        // Display the new information on the darts status line
-        displayDartsStatusLine();
-        // Switch to the other team
-        if (TextUtils.equals(current_team_string, "Team A")) {
-            current_team_string = "Team B";
-        } else if (TextUtils.equals(current_team_string, "Team B")) {
-            current_team_string = "Team A";
-        } else {
-            errorSignal();
+        if (bust_TextView.getVisibility() == View.GONE) { // Player has not busted
+            // Initialize the variables for the next turn
+            initializeVariablesForNextTurn();
+            // Display the new information on the darts status line
+            displayDartsStatusLine();
+            // Switch to the other team
+            if (TextUtils.equals(current_team_string, "Team A")) {
+                current_team_string = "Team B";
+            } else if (TextUtils.equals(current_team_string, "Team B")) {
+                current_team_string = "Team A";
+            } else {
+                errorSignal();
+            }
+        }
+        else { // Player has busted
+            disableAllButtons();
+            TextView reset_TextView = findViewById(R.id.button_reset);
+            reset_TextView.setEnabled(true);
         }
 
     }
 
     public void pressAB(View view) {
         // Initialize variables for current turn
-        initializeVariables();
+        initializeVariablesForNextTurn();
         // Display initialized darts status
         displayDartsStatusLine();
         // Switch to the other team
@@ -423,14 +494,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void pressReset(View view) {
         // Initialize variables for current turn
-        initializeVariables();
+        initializeVariablesForNextTurn();
         // Display initialized darts status
         displayDartsStatusLine();
     }
 
     public void pressGameReset(View view) {
         // Initialize variables for current turn
-        initializeVariables();
+        initializeVariablesForNextTurn();
         // Display initialized darts status
         displayDartsStatusLine();
         // Initialize both teams' scores
@@ -438,10 +509,10 @@ public class MainActivity extends AppCompatActivity {
         int_teamB_score = 301;
         // Post the new score for team A
         TextView teamA_score_TextView = findViewById(R.id.scoreA);
-        teamA_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamA_score));
+        teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
         // Post the new score for team B
         TextView teamB_score_TextView = findViewById(R.id.scoreB);
-        teamB_score_TextView.setText(String.format(Locale.ENGLISH,"%d",int_teamB_score));
+        teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamB_score));
         // Let Team A take the first turn
         current_team_string = "Team A";
     }
@@ -464,7 +535,6 @@ public class MainActivity extends AppCompatActivity {
         dart_3_multiplier_TextView.setText(dart3_multiplier_string);
         TextView dart3_points_TextView = findViewById(R.id.text_dart_3_points);
         dart3_points_TextView.setText(dart3_points_string);
-
     }
 
     private void errorSignal() {
