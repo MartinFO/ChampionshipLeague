@@ -1,5 +1,6 @@
 package com.example.android.championshipleague;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private String current_keypad_string = ""; // Holds the number entered on the keypad
     private String dart1_multiplier_string = "S";
@@ -342,6 +344,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
+        // teamA_score_TextView is Team A's score view
+        TextView teamA_score_TextView = findViewById(R.id.scoreA);
+        // teamB_score_TextView is Team B's score view
+        TextView teamB_score_TextView = findViewById(R.id.scoreB);
+
         // Declare and initialize local variables
         int int_dart1_multiplier = 1;
         int int_dart1_score;
@@ -438,10 +445,12 @@ public class MainActivity extends AppCompatActivity {
                 if (int_temp_score < 0) { // Team A has busted
                     bust_TextView.setVisibility(View.VISIBLE);
                     current_team_string = "Team B";
+                    teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+                    teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
                 } else { // Team A has a valid score
                     int_teamA_score = int_teamA_score - int_total_score;
-                    TextView teamA_score_TextView = findViewById(R.id.scoreA);
+                    teamA_score_TextView = findViewById(R.id.scoreA);
                     teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
                 }
                 break;
@@ -453,10 +462,12 @@ public class MainActivity extends AppCompatActivity {
                 if (int_temp_score < 0) { // Team B has busted
                     bust_TextView.setVisibility(View.VISIBLE);
                     current_team_string = "Team A";
+                    teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+                    teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
                 } else { // Team B has a valid score
                     int_teamB_score = int_teamB_score - int_total_score;
-                    TextView teamB_score_TextView = findViewById(R.id.scoreB);
+                    teamB_score_TextView = findViewById(R.id.scoreB);
                     teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%1d", int_teamB_score));
                 }
                 break;
@@ -472,8 +483,14 @@ public class MainActivity extends AppCompatActivity {
             // Switch to the other team
             if (TextUtils.equals(current_team_string, "Team A")) {
                 current_team_string = "Team B";
+                teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+                teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+
             } else if (TextUtils.equals(current_team_string, "Team B")) {
                 current_team_string = "Team A";
+                teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+                teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+
             } else {
                 errorSignal();
             }
@@ -492,6 +509,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressAB(View view) {
+        // teamA_score_TextView is Team A's score view
+        TextView teamA_score_TextView = findViewById(R.id.scoreA);
+        // teamB_score_TextView is Team B's score view
+        TextView teamB_score_TextView = findViewById(R.id.scoreB);
+
         // Initialize variables for current turn
         initializeVariablesForNextTurn();
         // Display initialized darts status
@@ -499,8 +521,14 @@ public class MainActivity extends AppCompatActivity {
         // Switch to the other team
         if (TextUtils.equals(current_team_string, "Team A")) {
             current_team_string = "Team B";
+            teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+            teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+
         } else if (TextUtils.equals(current_team_string, "Team B")) {
             current_team_string = "Team A";
+            teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+            teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+
         } else {
             errorSignal();
         }
@@ -515,6 +543,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressGameReset(View view) {
+        // teamA_score_TextView is Team A's score view
+        TextView teamA_score_TextView = findViewById(R.id.scoreA);
+        // teamB_score_TextView is Team B's score view
+        TextView teamB_score_TextView = findViewById(R.id.scoreB);
+
         // Initialize variables for current turn
         initializeVariablesForNextTurn();
         // Display initialized darts status
@@ -523,13 +556,16 @@ public class MainActivity extends AppCompatActivity {
         int_teamA_score = 301;
         int_teamB_score = 301;
         // Post the new score for team A
-        TextView teamA_score_TextView = findViewById(R.id.scoreA);
+        teamA_score_TextView = findViewById(R.id.scoreA);
         teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
         // Post the new score for team B
-        TextView teamB_score_TextView = findViewById(R.id.scoreB);
+        teamB_score_TextView = findViewById(R.id.scoreB);
         teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamB_score));
         // Let Team A take the first turn
         current_team_string = "Team A";
+        teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+        teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+
     }
 
 
