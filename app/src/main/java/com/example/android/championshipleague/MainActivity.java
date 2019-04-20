@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         // Hide the "BUST" message for exceeding the remaining points
         TextView bust_TextView = findViewById(R.id.bust);
         bust_TextView.setVisibility(View.GONE);
+        TextView game_TextView = findViewById(R.id.game_won);
+        game_TextView.setVisibility(View.GONE);
     }
 
     private void disableNumericKeys() {
@@ -351,6 +353,8 @@ public class MainActivity extends AppCompatActivity {
         int int_total_score;
         // bust_TextView is used to indicate that the darts total exceeds the player's score
         TextView bust_TextView = findViewById(R.id.bust);
+        // game_TextView is used to indicate that a player has won the game
+        TextView game_TextView = findViewById(R.id.game_won);
 
 
         // Compute total score for all three darts
@@ -428,11 +432,14 @@ public class MainActivity extends AppCompatActivity {
         switch (current_team_string) {
             case "Team A":
                 int_temp_score = int_teamA_score - int_total_score;
-                if (int_temp_score < 0) {
+                if (int_temp_score == 0) { // Team A has won the game
+                    game_TextView.setVisibility(View.VISIBLE);
+                }
+                if (int_temp_score < 0) { // Team A has busted
                     bust_TextView.setVisibility(View.VISIBLE);
                     current_team_string = "Team B";
 
-                } else {
+                } else { // Team A has a valid score
                     int_teamA_score = int_teamA_score - int_total_score;
                     TextView teamA_score_TextView = findViewById(R.id.scoreA);
                     teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
@@ -440,11 +447,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case "Team B":
                 int_temp_score = int_teamB_score - int_total_score;
-                if (int_temp_score < 0) {
+                if (int_temp_score == 0) { // Team B has won the game
+                    game_TextView.setVisibility(View.VISIBLE);
+                }
+                if (int_temp_score < 0) { // Team B has busted
                     bust_TextView.setVisibility(View.VISIBLE);
                     current_team_string = "Team A";
 
-                } else {
+                } else { // Team B has a valid score
                     int_teamB_score = int_teamB_score - int_total_score;
                     TextView teamB_score_TextView = findViewById(R.id.scoreB);
                     teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%1d", int_teamB_score));
@@ -454,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        if (bust_TextView.getVisibility() == View.GONE) { // Player has not busted
+        if (bust_TextView.getVisibility() == View.GONE && game_TextView.getVisibility() == View.GONE) { // Player has not busted and Team has not won
             // Initialize the variables for the next turn
             initializeVariablesForNextTurn();
             // Display the new information on the darts status line
@@ -467,11 +477,16 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 errorSignal();
             }
-        }
-        else { // Player has busted
-            disableAllButtons();
-            TextView reset_TextView = findViewById(R.id.button_reset);
-            reset_TextView.setEnabled(true);
+        } else { // Player has busted
+            if (bust_TextView.getVisibility() != View.GONE) {
+                disableAllButtons();
+                TextView reset_TextView = findViewById(R.id.button_reset);
+                reset_TextView.setEnabled(true);
+            } else { // Team has won
+                disableAllButtons();
+                TextView game_reset_TextView = findViewById(R.id.button_game_reset);
+                game_reset_TextView.setEnabled(true);
+            }
         }
 
     }

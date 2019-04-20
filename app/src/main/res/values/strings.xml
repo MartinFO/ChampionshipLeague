@@ -27,4 +27,5 @@
     <string name="key_reset">reset</string>
     <string name="key_game_reset">game reset</string>
     <string name="bust_message">bust</string>
+    <string name="game_message">game</string>
 </resources>
