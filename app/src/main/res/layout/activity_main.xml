@@ -23,8 +23,8 @@
         android:id="@+id/scoreA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
         android:text="@string/starting_score"
         android:textSize="80sp"
         android:background="#ccff90"
@@ -47,8 +47,8 @@
         android:id="@+id/scoreB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"
         android:text="@string/starting_score"
         android:textSize="80sp"
         app:layout_constraintLeft_toLeftOf="@id/teamB"
@@ -57,6 +57,16 @@
         />
 
     <!-- Current throw status line -->
+    <TextView
+        android:background="@drawable/status_highlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#77b2ebf2"
+        app:layout_constraintTop_toTopOf="@id/text_dart_1"
+        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintLeft_toLeftOf="@id/text_dart_1"
+        app:layout_constraintRight_toRightOf="@id/text_dart_1_points"/>
+
     <TextView
         android:id="@+id/text_dart_1"
         android:layout_width="wrap_content"
