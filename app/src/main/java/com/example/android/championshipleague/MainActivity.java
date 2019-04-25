@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
     private String dart3_multiplier_string = "";
     private String dart3_points_string = "0";
     private String current_team_string = "Team A"; // Can be "Team A" or "Team B"
+    private String dart1_string = " 1: ";
     private int int_current_dart = 1; // Can be 1, 2, or 3
+    private int int_dart1_multiplier = 1;
+    private int int_dart2_multiplier = 1;
+    private int int_dart3_multiplier = 1;
+    private int int_dart1_points = 0;
+    private int int_dart2_points = 0;
+    private int int_dart3_points = 0;
     private int int_teamA_score = 301;
     private int int_teamB_score = 301;
     private boolean bool_multiplier_entered = false;
@@ -36,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
         // Disable the Zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
+        // Set the highlight for dart 1
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        text_highlight_1.setVisibility(View.VISIBLE);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        text_highlight_2.setVisibility(View.INVISIBLE);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        text_highlight_3.setVisibility(View.INVISIBLE);
     }
 
     private void initializeVariablesForNextTurn() {
@@ -48,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
         dart3_points_string = "";
         current_keypad_string = "";
         int_current_dart = 1;
+        int_dart1_multiplier = 1;
+        int_dart2_multiplier = 1;
+        int_dart3_multiplier = 1;
+        // Set the highlight for dart 1
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        text_highlight_1.setVisibility(View.VISIBLE);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        text_highlight_2.setVisibility(View.INVISIBLE);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        text_highlight_3.setVisibility(View.INVISIBLE);
         enableAllButtons();
         // Disable Post button
         Button button_post = findViewById(R.id.button_post);
@@ -57,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         bust_TextView.setVisibility(View.GONE);
         TextView game_TextView = findViewById(R.id.game_won);
         game_TextView.setVisibility(View.GONE);
+        dart1_string = " 1: ";
     }
 
     private void disableNumericKeys() {
@@ -187,21 +214,101 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed a numeric key
     public void press1(View view) {
+        // Declare a boolean variable for the current dart having a single digit of points
+        boolean bool_points_less_than_ten = true;
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 1;
+                if (int_dart1_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 1;
+                if (int_dart2_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 1;
+                if (int_dart3_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            default:
+                errorSignal();
+                break;
+        }
+        if (bool_points_less_than_ten) { // If the dart has a value from 1 to 9
+            // Disable the numeric keys except zero
+            disableNumericKeys();
+            // Enable the Zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(true);
+            // Disable the Bull key
+            Button button_bull = findViewById(R.id.button_bull);
+            button_bull.setEnabled(false);
+        } else { // If the dart has a value greater than or equal to 10
+            disableNumericKeys();
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
         }
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
-        // Enable the Zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(true);
+        if (bool_points_less_than_ten) {
+            // Enable the Zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(true);
+            // Disable the Bull key
+            Button button_bull = findViewById(R.id.button_bull);
+            button_bull.setEnabled(false);
+        } else {
+            disableNumericKeys();
+        }
         // Display the new set of multipliers and points
         postDartStatusPoints("1");
     }
 
     public void press2(View view) {
+        // Declare a boolean variable for the current dart having a single digit of points
+        boolean bool_points_less_than_ten = true;
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 2;
+                if (int_dart1_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 2;
+                if (int_dart2_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 2;
+                if (int_dart3_points >= 10) {
+                    bool_points_less_than_ten = false;
+                }
+                break;
+            default:
+                errorSignal();
+                break;
+        }
+        if (bool_points_less_than_ten) { // If the dart has a value from 1 to 9
+            // Disable the numeric keys except zero
+            disableNumericKeys();
+            // Enable the Zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(true);
+            // Disable the Bull key
+            Button button_bull = findViewById(R.id.button_bull);
+            button_bull.setEnabled(false);
+        } else { // If the dart has a value greater than or equal to 10
+            disableNumericKeys();
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -218,6 +325,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press3(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 3;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 3;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 3;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -231,6 +353,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press4(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 4;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 4;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 4;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -244,6 +381,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press5(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 5;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 5;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 5;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -257,6 +409,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press6(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 6;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 6;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 6;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -270,6 +437,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press7(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 7;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 7;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 7;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -283,6 +465,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press8(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 8;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 8;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 8;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -296,6 +493,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void press9(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 10 * int_dart1_points + 9;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points + 9;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points + 9;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -319,6 +531,21 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed the Bull key
     public void pressBull(View view) {
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_points = 25;
+                break;
+            case 2:
+                int_dart2_points = 25;
+                break;
+            case 3:
+                int_dart3_points = 25;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // If no multiplier was entered before points or bull, multiplier is single.
         if (!bool_multiplier_entered) {
             dart1_multiplier_string = "S";
@@ -343,6 +570,7 @@ public class MainActivity extends AppCompatActivity {
         switch (int_current_dart) {
             case 1:
                 dart1_points_string = current_keypad_string;
+                dart1_string = " 1: " + current_keypad_string;
                 break;
             case 2:
                 dart2_points_string = current_keypad_string;
@@ -363,6 +591,20 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed the S, D, or T  multiplier keys
     public void pressS(View view) {
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_multiplier = 1;
+                break;
+            case 2:
+                int_dart2_multiplier = 1;
+                break;
+            case 3:
+                int_dart3_multiplier = 1;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -370,6 +612,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressD(View view) {
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_multiplier = 2;
+                break;
+            case 2:
+                int_dart2_multiplier = 2;
+                break;
+            case 3:
+                int_dart3_multiplier = 2;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -377,6 +633,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressT(View view) {
+        switch (int_current_dart) {
+            case 1:
+                int_dart1_multiplier = 3;
+                break;
+            case 2:
+                int_dart2_multiplier = 3;
+                break;
+            case 3:
+                int_dart3_multiplier = 3;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
         // Disable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(false);
@@ -386,35 +656,48 @@ public class MainActivity extends AppCompatActivity {
     private void pressMultiplier(String multiplier_string) {
         bool_multiplier_entered = true;
         // Disable the A/B key
-        Button button = findViewById(R.id.button_toggle_a_b);
-        button.setEnabled(false);
+        Button buttonAB = findViewById(R.id.button_toggle_a_b);
+        buttonAB.setEnabled(false);
         // Disable the Post key
-        button = findViewById(R.id.button_post);
-        button.setEnabled(false);
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(false);
+        // Create local variables for setting the darts line highlighting
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         // Enable the numeric keys
         enableNumericKeys();
-        // If the keypad string is empty, this means no points have been entered.
-        // This means that the multiplier (S,D,T) is not a signal to move on to the next dart.
+        // If the keypad string is not empty, this means points have been entered.
+        // This means that the multiplier (S,D,T) is a signal to move on to the next dart.
         if (!current_keypad_string.isEmpty()) {
             int_current_dart = int_current_dart + 1;
+            // Remove the darts line highlighting
+            text_highlight_1.setVisibility(View.INVISIBLE);
+            text_highlight_2.setVisibility(View.INVISIBLE);
+            text_highlight_3.setVisibility(View.INVISIBLE);
+
         }
         switch (int_current_dart) {
             case 1:
                 dart1_multiplier_string = multiplier_string;
+                dart1_string = dart1_string + multiplier_string + " ";
+                text_highlight_1.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 dart2_multiplier_string = multiplier_string;
+                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 3:
                 dart3_multiplier_string = multiplier_string;
                 // Disable the multiplier keys
-                button = findViewById(R.id.button_S);
-                button.setEnabled(false);
-                button = findViewById(R.id.button_D);
-                button.setEnabled(false);
-                button = findViewById(R.id.button_T);
-                button.setEnabled(false);
+                Button button_S = findViewById(R.id.button_S);
+                button_S.setEnabled(false);
+                Button button_D = findViewById(R.id.button_D);
+                button_D.setEnabled(false);
+                Button button_T = findViewById(R.id.button_T);
+                button_T.setEnabled(false);
 
+                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 dart1_multiplier_string = "X";
@@ -425,20 +708,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressPost(View view) {
+        // Declare and initialize local variables
+        int int_total_score;
+        int int_temp_score;
+
         // teamA_score_TextView is Team A's score view
         TextView teamA_score_TextView = findViewById(R.id.scoreA);
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView = findViewById(R.id.scoreB);
 
-        // Declare and initialize local variables
-        int int_dart1_multiplier = 1;
-        int int_dart1_score;
-        int int_dart2_multiplier = 1;
-        int int_dart2_score;
-        int int_dart3_multiplier = 1;
-        int int_dart3_score;
-        int int_temp_score;
-        int int_total_score;
         // bust_TextView is used to indicate that the darts total exceeds the player's score
         TextView bust_TextView = findViewById(R.id.bust);
         // game_TextView is used to indicate that a player has won the game
@@ -446,74 +724,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Compute total score for all three darts
-        // Set the integer dart multiplier for dart 1
-        switch (dart1_multiplier_string) {
-            case "S":
-                int_dart1_multiplier = 1;
-                break;
-            case "D":
-                int_dart1_multiplier = 2;
-                break;
-            case "T":
-                int_dart1_multiplier = 3;
-                break;
-            default:
-                errorSignal();
-                break;
-        }
-        // Set the integer dart score for dart 1
-        if (dart1_points_string.equals("B")) {
-            int_dart1_score = 25;
-        } else {
-            int_dart1_score = Integer.parseInt(dart1_points_string);
-        }
-
-        // Set the integer dart multiplier for dart 2
-        switch (dart2_multiplier_string) {
-            case "S":
-                int_dart2_multiplier = 1;
-                break;
-            case "D":
-                int_dart2_multiplier = 2;
-                break;
-            case "T":
-                int_dart2_multiplier = 3;
-                break;
-            default:
-                errorSignal();
-                break;
-        }
-        // Set the integer dart score for dart 2
-        if (dart2_points_string.equals("B")) {
-            int_dart2_score = 25;
-        } else {
-            int_dart2_score = Integer.parseInt(dart2_points_string);
-        }
-
-        // Set the integer dart multiplier for dart 3
-        switch (dart3_multiplier_string) {
-            case "S":
-                int_dart3_multiplier = 1;
-                break;
-            case "D":
-                int_dart3_multiplier = 2;
-                break;
-            case "T":
-                int_dart3_multiplier = 3;
-                break;
-            default:
-                errorSignal();
-                break;
-        }
-        // Set the integer dart score for dart 3
-        if (dart3_points_string.equals("B")) {
-            int_dart3_score = 25;
-        } else {
-            int_dart3_score = Integer.parseInt(dart3_points_string);
-        }
-
-        // Compute total score for all three darts
-        int_total_score = (int_dart1_score * int_dart1_multiplier) + (int_dart2_score * int_dart2_multiplier) + (int_dart3_score * int_dart3_multiplier);
+        int_total_score = (int_dart1_points * int_dart1_multiplier) + (int_dart2_points * int_dart2_multiplier) + (int_dart3_points * int_dart3_multiplier);
 
 
         // Compute the new score for the current team and post the score
@@ -652,21 +863,21 @@ public class MainActivity extends AppCompatActivity {
 
     // Display entire darts status line
     private void displayDartsStatusLine() {
+        String str_dart1_status;
+        String str_dart2_status;
+        String str_dart3_status;
         // Display dart 1 multiplier and points
-        TextView dart_1_multiplier_TextView = findViewById(R.id.text_dart_1_multiplier);
-        dart_1_multiplier_TextView.setText(dart1_multiplier_string);
-        TextView dart1_points_TextView = findViewById(R.id.text_dart_1_points);
-        dart1_points_TextView.setText(dart1_points_string);
+        str_dart1_status = " 1: " + Integer.toString(int_dart1_multiplier) + " " + Integer.toString(int_dart1_points);
+        TextView text_dart_1 = findViewById(R.id.text_dart_1);
+        text_dart_1.setText(str_dart1_status);
         // Display dart 2 multiplier and points
-        TextView dart_2_multiplier_TextView = findViewById(R.id.text_dart_2_multiplier);
-        dart_2_multiplier_TextView.setText(dart2_multiplier_string);
-        TextView dart2_points_TextView = findViewById(R.id.text_dart_2_points);
-        dart2_points_TextView.setText(dart2_points_string);
+        str_dart2_status = " 2: " + Integer.toString(int_dart2_multiplier) + " " + Integer.toString(int_dart2_points);
+        TextView text_dart_2 = findViewById(R.id.text_dart_2);
+        text_dart_2.setText(str_dart2_status);
         // Display dart 3 multiplier and points
-        TextView dart_3_multiplier_TextView = findViewById(R.id.text_dart_3_multiplier);
-        dart_3_multiplier_TextView.setText(dart3_multiplier_string);
-        TextView dart3_points_TextView = findViewById(R.id.text_dart_3_points);
-        dart3_points_TextView.setText(dart3_points_string);
+        str_dart3_status = " 3: " + Integer.toString(int_dart3_multiplier) + " " + Integer.toString(int_dart3_points);
+        TextView text_dart_3 = findViewById(R.id.text_dart_3);
+        text_dart_3.setText(str_dart3_status);
     }
 
     private void errorSignal() {
