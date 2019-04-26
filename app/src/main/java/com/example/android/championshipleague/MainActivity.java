@@ -536,12 +536,11 @@ public class MainActivity extends AppCompatActivity {
                 int_dart1_multiplier = 1;
                 break;
             case 1:
-                int_dart1_multiplier = 1;
-                break;
-            case 2:
+                int_current_dart = 2;
                 int_dart2_multiplier = 1;
                 break;
-            case 3:
+            case 2:
+                int_current_dart = 3;
                 int_dart3_multiplier = 1;
                 break;
             default:
@@ -561,12 +560,11 @@ public class MainActivity extends AppCompatActivity {
                 int_dart1_multiplier = 2;
                 break;
             case 1:
-                int_dart1_multiplier = 2;
-                break;
-            case 2:
+                int_current_dart = 2;
                 int_dart2_multiplier = 2;
                 break;
-            case 3:
+            case 2:
+                int_current_dart = 3;
                 int_dart3_multiplier = 2;
                 break;
             default:
@@ -586,12 +584,11 @@ public class MainActivity extends AppCompatActivity {
                 int_dart1_multiplier = 3;
                 break;
             case 1:
-                int_dart1_multiplier = 3;
-                break;
-            case 2:
+                int_current_dart = 2;
                 int_dart2_multiplier = 3;
                 break;
-            case 3:
+            case 2:
+                int_current_dart = 3;
                 int_dart3_multiplier = 3;
                 break;
             default:
@@ -651,7 +648,9 @@ public class MainActivity extends AppCompatActivity {
                     Button button_T = findViewById(R.id.button_T);
                     button_T.setEnabled(false);
                     text_highlight_3.setVisibility(View.VISIBLE);
-                } else { errorSignal(); }
+                } else {
+                    errorSignal();
+                }
                 break;
             default:
                 errorSignal();
@@ -822,9 +821,9 @@ public class MainActivity extends AppCompatActivity {
         String str_dart1_multiplier = " ";
         String str_dart2_multiplier = " ";
         String str_dart3_multiplier = " ";
-        String str_dart1_points = " ";
-        String str_dart2_points = " ";
-        String str_dart3_points = " ";
+        String str_dart1_points = "  ";
+        String str_dart2_points = "  ";
+        String str_dart3_points = "  ";
         // Disable the A/B key
         Button buttonAB = findViewById(R.id.button_toggle_a_b);
         buttonAB.setEnabled(false);
@@ -850,9 +849,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         if (int_dart1_points == 0) {
-            str_dart1_points = " ";
+            str_dart1_points = "  ";
+        } else if (int_dart1_points == 25) {
+            str_dart1_points = " B";
         } else {
-            str_dart1_points = Integer.toString(int_dart1_points);
+            str_dart1_points = String.format("%1$2s", int_dart1_points);
         }
         str_dart1_status = " 1: " + str_dart1_multiplier + " " + str_dart1_points;
         TextView text_dart_1 = findViewById(R.id.text_dart_1);
