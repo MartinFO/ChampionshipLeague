@@ -17,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String current_team_string = "Team A"; // Can be "Team A" or "Team B"
     private int int_current_dart = 0; // Can be 0, 1, 2, or 3
-    private int int_dart1_multiplier = 0;
-    private int int_dart2_multiplier = 0;
-    private int int_dart3_multiplier = 0;
+    private int int_dart1_multiplier = 1;
+    private int int_dart2_multiplier = 1;
+    private int int_dart3_multiplier = 1;
     private int int_dart1_points = 0;
     private int int_dart2_points = 0;
     private int int_dart3_points = 0;
@@ -47,12 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeVariablesForNextTurn() {
         int_current_dart = 0;
-        int_dart1_multiplier = 0;
-        int_dart2_multiplier = 0;
-        int_dart3_multiplier = 0;
+        int_dart1_multiplier = 1;
+        int_dart2_multiplier = 1;
+        int_dart3_multiplier = 1;
         int_dart1_points = 0;
         int_dart2_points = 0;
         int_dart3_points = 0;
+        // Enable all buttons except the zero and post buttons
+        enableAllButtons();
+        // Disable the zero and post buttons
+        Button button_zero = findViewById(R.id.button_0);
+        Button button_post = findViewById(R.id.button_post);
+        button_zero.setEnabled(false);
+        button_post.setEnabled(false);
         // Set the highlight for dart 1
         TextView text_highlight_1 = findViewById(R.id.highlight_1);
         text_highlight_1.setVisibility(View.VISIBLE);
@@ -60,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
         text_highlight_2.setVisibility(View.INVISIBLE);
         TextView text_highlight_3 = findViewById(R.id.highlight_3);
         text_highlight_3.setVisibility(View.INVISIBLE);
-        enableAllButtons();
-        // Disable Post button
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
         // Hide the "BUST" message for exceeding the remaining points
         TextView bust_TextView = findViewById(R.id.bust);
         bust_TextView.setVisibility(View.GONE);
@@ -239,9 +242,12 @@ public class MainActivity extends AppCompatActivity {
         } else { // If the dart has the value of 11
             disableNumericKeys();
         }
-        // If no multiplier was entered before points or bull, multiplier is single.
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
+
     }
 
     public void press2(View view) {
@@ -292,7 +298,10 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-    }
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
+        }
 
     public void press3(View view) {
         // Increase the value of the points for the current dart
@@ -320,6 +329,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press4(View view) {
@@ -348,6 +360,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press5(View view) {
@@ -376,6 +391,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press6(View view) {
@@ -404,6 +422,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press7(View view) {
@@ -432,6 +453,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press8(View view) {
@@ -460,6 +484,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press9(View view) {
@@ -488,6 +515,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     public void press0(View view) {
@@ -497,6 +527,9 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     // User has pressed the Bull key
@@ -526,10 +559,17 @@ public class MainActivity extends AppCompatActivity {
         button_bull.setEnabled(false);
         // Display the new set of multipliers and points
         displayDartsStatusLine();
+        // Enable the Post key
+        Button button_post = findViewById(R.id.button_post);
+        button_post.setEnabled(true);
     }
 
     // User has pressed the S, D, or T  multiplier keys
     public void pressS(View view) {
+        // Create local variables for setting the darts line highlighting
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
                 int_current_dart = 1;
@@ -538,10 +578,14 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 int_current_dart = 2;
                 int_dart2_multiplier = 1;
+                text_highlight_1.setVisibility(View.INVISIBLE);
+                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 int_current_dart = 3;
                 int_dart3_multiplier = 1;
+                text_highlight_2.setVisibility(View.INVISIBLE);
+                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
@@ -554,6 +598,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressD(View view) {
+        // Create local variables for setting the darts line highlighting
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
                 int_current_dart = 1;
@@ -562,10 +610,14 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 int_current_dart = 2;
                 int_dart2_multiplier = 2;
+                text_highlight_1.setVisibility(View.INVISIBLE);
+                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 int_current_dart = 3;
                 int_dart3_multiplier = 2;
+                text_highlight_2.setVisibility(View.INVISIBLE);
+                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
@@ -578,6 +630,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressT(View view) {
+        // Create local variables for setting the darts line highlighting
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
                 int_current_dart = 1;
@@ -586,10 +642,14 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 int_current_dart = 2;
                 int_dart2_multiplier = 3;
+                text_highlight_1.setVisibility(View.INVISIBLE);
+                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 int_current_dart = 3;
                 int_dart3_multiplier = 3;
+                text_highlight_2.setVisibility(View.INVISIBLE);
+                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
@@ -624,7 +684,7 @@ public class MainActivity extends AppCompatActivity {
                 if (int_dart1_points == 0) {
                     text_highlight_1.setVisibility(View.VISIBLE);
                 } else {
-                    int_current_dart = int_current_dart + 1;
+                    int_current_dart = 2;
                     text_highlight_1.setVisibility(View.INVISIBLE);
                     text_highlight_2.setVisibility(View.VISIBLE);
                 }
@@ -633,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
                 if (int_dart2_points == 0) {
                     text_highlight_2.setVisibility(View.VISIBLE);
                 } else {
-                    int_current_dart = int_current_dart + 1;
+                    int_current_dart = 3;
                     text_highlight_2.setVisibility(View.INVISIBLE);
                     text_highlight_3.setVisibility(View.VISIBLE);
                 }
@@ -812,6 +872,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // private void advanceToNextDart () {
+        // int_current_dart = int_current_dart + 1;
+        // switch (int_current_dart) {
+            // case
+        // }
+    // }
 
     // Display entire darts status line
     private void displayDartsStatusLine() {
@@ -824,19 +890,10 @@ public class MainActivity extends AppCompatActivity {
         String str_dart1_points = "  ";
         String str_dart2_points = "  ";
         String str_dart3_points = "  ";
-        // Disable the A/B key
-        Button buttonAB = findViewById(R.id.button_toggle_a_b);
-        buttonAB.setEnabled(false);
-        // Enable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
         // Display dart 1 multiplier and points
         switch (int_dart1_multiplier) {
-            case 0:
-                str_dart1_multiplier = " ";
-                break;
             case 1:
-                str_dart1_multiplier = "S";
+                str_dart1_multiplier = " ";
                 break;
             case 2:
                 str_dart1_multiplier = "D";
@@ -860,11 +917,8 @@ public class MainActivity extends AppCompatActivity {
         text_dart_1.setText(str_dart1_status);
         // Display dart 2 multiplier and points
         switch (int_dart2_multiplier) {
-            case 0:
-                str_dart2_multiplier = " ";
-                break;
             case 1:
-                str_dart2_multiplier = "S";
+                str_dart2_multiplier = " ";
                 break;
             case 2:
                 str_dart2_multiplier = "D";
@@ -877,7 +931,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         if (int_dart2_points == 0) {
-            str_dart2_points = " ";
+            str_dart2_points = "  ";
+        } else if (int_dart2_points == 25) {
+            str_dart2_points = " B";
         } else {
             str_dart2_points = Integer.toString(int_dart2_points);
         }
@@ -886,11 +942,8 @@ public class MainActivity extends AppCompatActivity {
         text_dart_2.setText(str_dart2_status);
         // Display dart 3 multiplier and points
         switch (int_dart3_multiplier) {
-            case 0:
-                str_dart3_multiplier = " ";
-                break;
             case 1:
-                str_dart3_multiplier = "S";
+                str_dart3_multiplier = " ";
                 break;
             case 2:
                 str_dart3_multiplier = "D";
@@ -904,6 +957,8 @@ public class MainActivity extends AppCompatActivity {
         }
         if (int_dart3_points == 0) {
             str_dart3_points = " ";
+        } else if (int_dart3_points == 25) {
+            str_dart3_points = " B";
         } else {
             str_dart3_points = Integer.toString(int_dart3_points);
         }
@@ -920,7 +975,6 @@ public class MainActivity extends AppCompatActivity {
         error_A_TextView.setText(error_string);
         TextView error_B_TextView = findViewById(R.id.teamB);
         error_B_TextView.setText(error_string);
-
     }
 
 
