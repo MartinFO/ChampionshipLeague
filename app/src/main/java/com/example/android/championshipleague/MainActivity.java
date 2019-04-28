@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void enableAllButtons() {
-        // Note: "0" is treated specially -- not enabled.
         Button button = findViewById(R.id.button_1);
         button.setEnabled(true);
         button = findViewById(R.id.button_2);
@@ -133,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(true);
         button = findViewById(R.id.button_9);
         button.setEnabled(true);
-        button = findViewById(R.id.button_0); // "0" is a special case
-        button.setEnabled(false); // "0" key is disabled
+        button = findViewById(R.id.button_0);
+        button.setEnabled(true);
         button = findViewById(R.id.button_bull);
         button.setEnabled(true);
         button = findViewById(R.id.button_post);
@@ -195,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(true);
         button = findViewById(R.id.button_9);
         button.setEnabled(true);
-        button = findViewById(R.id.button_0); // "0" is a special case
-        button.setEnabled(false); // "0" key is disabled
+        button = findViewById(R.id.button_0);
+        button.setEnabled(true);
     }
 
 
@@ -247,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
-
     }
 
     public void press2(View view) {
@@ -301,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
-        }
+    }
 
     public void press3(View view) {
         // Increase the value of the points for the current dart
@@ -323,15 +321,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press4(View view) {
@@ -354,15 +355,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press5(View view) {
@@ -385,15 +389,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press6(View view) {
@@ -416,15 +423,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press7(View view) {
@@ -447,15 +457,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press8(View view) {
@@ -478,15 +491,18 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press9(View view) {
@@ -509,27 +525,51 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     public void press0(View view) {
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Increase the value of the points for the current dart
+        switch (int_current_dart) {
+            case 0:
+                errorSignal();
+                break;
+            case 1:
+                int_dart1_points = 10 * int_dart1_points;
+                break;
+            case 2:
+                int_dart2_points = 10 * int_dart2_points;
+                break;
+            case 3:
+                int_dart3_points = 10 * int_dart3_points;
+                break;
+            default:
+                errorSignal();
+                break;
+        }
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     // User has pressed the Bull key
@@ -553,44 +593,38 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
-        disableNumericKeys();
-        // Disable the Bull key
-        Button button_bull = findViewById(R.id.button_bull);
-        button_bull.setEnabled(false);
+        // Advance to the next dart
+        advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable the Post key
+        // Enable all the keys except zero and post
+        enableAllButtons();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
+        // Disable the Post key
         Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(true);
+        button_post.setEnabled(false);
     }
 
     // User has pressed the S, D, or T  multiplier keys
     public void pressS(View view) {
-        // Create local variables for setting the darts line highlighting
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
-                int_current_dart = 1;
                 int_dart1_multiplier = 1;
                 break;
             case 1:
-                int_current_dart = 2;
                 int_dart2_multiplier = 1;
-                text_highlight_1.setVisibility(View.INVISIBLE);
-                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                int_current_dart = 3;
                 int_dart3_multiplier = 1;
-                text_highlight_2.setVisibility(View.INVISIBLE);
-                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
                 break;
         }
+        // Advance to the next dart
+        advanceToNextDart();
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -598,31 +632,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressD(View view) {
-        // Create local variables for setting the darts line highlighting
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
-                int_current_dart = 1;
                 int_dart1_multiplier = 2;
                 break;
             case 1:
-                int_current_dart = 2;
                 int_dart2_multiplier = 2;
-                text_highlight_1.setVisibility(View.INVISIBLE);
-                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                int_current_dart = 3;
                 int_dart3_multiplier = 2;
-                text_highlight_2.setVisibility(View.INVISIBLE);
-                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
                 break;
         }
+        // Advance to the next dart
+        advanceToNextDart();
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -630,31 +655,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressT(View view) {
-        // Create local variables for setting the darts line highlighting
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
         switch (int_current_dart) {
             case 0:
-                int_current_dart = 1;
                 int_dart1_multiplier = 3;
                 break;
             case 1:
-                int_current_dart = 2;
                 int_dart2_multiplier = 3;
-                text_highlight_1.setVisibility(View.INVISIBLE);
-                text_highlight_2.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                int_current_dart = 3;
                 int_dart3_multiplier = 3;
-                text_highlight_2.setVisibility(View.INVISIBLE);
-                text_highlight_3.setVisibility(View.VISIBLE);
                 break;
             default:
                 errorSignal();
                 break;
         }
+        // Advance to the next dart
+        advanceToNextDart();
         // Disable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(false);
@@ -672,8 +688,11 @@ public class MainActivity extends AppCompatActivity {
         TextView text_highlight_1 = findViewById(R.id.highlight_1);
         TextView text_highlight_2 = findViewById(R.id.highlight_2);
         TextView text_highlight_3 = findViewById(R.id.highlight_3);
-        // Enable the numeric keys
+        // Enable the numeric keys except zero
         enableNumericKeys();
+        // Disable the zero key
+        Button button_zero = findViewById(R.id.button_0);
+        button_zero.setEnabled(false);
         // If the current dart's points are not zero,
         // then the multiplier (S,D,T) is a signal to move on to the next dart.
         switch (int_current_dart) {
@@ -872,12 +891,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // private void advanceToNextDart () {
-        // int_current_dart = int_current_dart + 1;
-        // switch (int_current_dart) {
-            // case
-        // }
-    // }
+    private void advanceToNextDart () {
+        // Create local variables for setting the darts line highlighting
+        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        // Increment the current dart variable
+        int_current_dart = int_current_dart + 1;
+        switch (int_current_dart) {
+            case 0: // Do nothing
+                break;
+            case 1: // Do nothing
+                break;
+            case 2:
+                text_highlight_1.setVisibility(View.INVISIBLE);
+                text_highlight_2.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                text_highlight_2.setVisibility(View.INVISIBLE);
+                text_highlight_3.setVisibility(View.VISIBLE);
+                break;
+            default:
+                errorSignal();
+                break;
+        }
+
+    }
 
     // Display entire darts status line
     private void displayDartsStatusLine() {
