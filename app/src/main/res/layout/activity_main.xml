@@ -197,7 +197,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="#aed581"
+        android:background="@drawable/keypad_button"
         android:onClick="press1"
         android:text="@string/key_1"
         android:textSize="30sp"
