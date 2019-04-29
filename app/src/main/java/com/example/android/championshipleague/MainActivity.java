@@ -325,14 +325,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press4(View view) {
@@ -359,14 +356,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press5(View view) {
@@ -393,14 +387,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press6(View view) {
@@ -427,14 +418,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press7(View view) {
@@ -461,14 +449,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press8(View view) {
@@ -495,14 +480,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press9(View view) {
@@ -529,14 +511,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     public void press0(View view) {
@@ -562,14 +541,11 @@ public class MainActivity extends AppCompatActivity {
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
+        // Enable all the keys except zero
         enableAllButtons();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
     }
 
     // User has pressed the Bull key
@@ -891,13 +867,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void advanceToNextDart () {
+    private void advanceToNextDart() {
         // Create local variables for setting the darts line highlighting
         TextView text_highlight_1 = findViewById(R.id.highlight_1);
         TextView text_highlight_2 = findViewById(R.id.highlight_2);
         TextView text_highlight_3 = findViewById(R.id.highlight_3);
         // Increment the current dart variable
-        int_current_dart = int_current_dart + 1;
+        if (int_current_dart < 3) {
+            int_current_dart = int_current_dart + 1;
+        }
+        // Change the status line highlighting
         switch (int_current_dart) {
             case 0: // Do nothing
                 break;
