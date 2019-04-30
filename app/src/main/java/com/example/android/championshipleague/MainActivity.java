@@ -930,7 +930,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart1_points = String.format("%1$2s", int_dart1_points);
         }
-        str_dart1_status = " 1: " + str_dart1_multiplier + " " + str_dart1_points;
+        str_dart1_status = "1: " + str_dart1_multiplier + " " + str_dart1_points;
         TextView text_dart_1 = findViewById(R.id.text_dart_1);
         text_dart_1.setText(str_dart1_status);
         // Display dart 2 multiplier and points
@@ -955,7 +955,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart2_points = Integer.toString(int_dart2_points);
         }
-        str_dart2_status = " 2: " + str_dart2_multiplier + " " + str_dart2_points;
+        str_dart2_status = "2: " + str_dart2_multiplier + " " + str_dart2_points;
         TextView text_dart_2 = findViewById(R.id.text_dart_2);
         text_dart_2.setText(str_dart2_status);
         // Display dart 3 multiplier and points
@@ -980,7 +980,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart3_points = Integer.toString(int_dart3_points);
         }
-        str_dart3_status = " 3: " + str_dart3_multiplier + " " + str_dart3_points;
+        str_dart3_status = "3: " + str_dart3_multiplier + " " + str_dart3_points;
         TextView text_dart_3 = findViewById(R.id.text_dart_3);
         text_dart_3.setText(str_dart3_status);
     }
