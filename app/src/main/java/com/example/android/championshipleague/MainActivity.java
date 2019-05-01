@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int int_dart3_points = 0;
     private int int_teamA_score = 301;
     private int int_teamB_score = 301;
+    private boolean advanced_by_number = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,18 @@ public class MainActivity extends AppCompatActivity {
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
         // Set the highlight for dart 1
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        text_highlight_1.setVisibility(View.VISIBLE);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        text_highlight_2.setVisibility(View.INVISIBLE);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
-        text_highlight_3.setVisibility(View.INVISIBLE);
+        TextView text_highlight_primary_1 = findViewById(R.id.primary_highlight_1);
+        text_highlight_primary_1.setVisibility(View.VISIBLE);
+        TextView text_highlight_primary_2 = findViewById(R.id.primary_highlight_2);
+        text_highlight_primary_2.setVisibility(View.INVISIBLE);
+        TextView text_highlight_primary_3 = findViewById(R.id.primary_highlight_3);
+        text_highlight_primary_3.setVisibility(View.INVISIBLE);
+        TextView text_highlight_secondary_1 = findViewById(R.id.secondary_highlight_1);
+        text_highlight_secondary_1.setVisibility(View.INVISIBLE);
+        TextView text_highlight_secondary_2 = findViewById(R.id.secondary_highlight_2);
+        text_highlight_secondary_2.setVisibility(View.VISIBLE);
+        TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
+        text_highlight_secondary_3.setVisibility(View.VISIBLE);
     }
 
     private void initializeVariablesForNextTurn() {
@@ -61,12 +66,18 @@ public class MainActivity extends AppCompatActivity {
         button_zero.setEnabled(false);
         button_post.setEnabled(false);
         // Set the highlight for dart 1
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
+        TextView text_highlight_1 = findViewById(R.id.primary_highlight_1);
         text_highlight_1.setVisibility(View.VISIBLE);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
+        TextView text_highlight_2 = findViewById(R.id.primary_highlight_2);
         text_highlight_2.setVisibility(View.INVISIBLE);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        TextView text_highlight_3 = findViewById(R.id.primary_highlight_3);
         text_highlight_3.setVisibility(View.INVISIBLE);
+        TextView text_highlight_secondary_1 = findViewById(R.id.secondary_highlight_1);
+        text_highlight_secondary_1.setVisibility(View.INVISIBLE);
+        TextView text_highlight_secondary_2 = findViewById(R.id.secondary_highlight_2);
+        text_highlight_secondary_2.setVisibility(View.VISIBLE);
+        TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
+        text_highlight_secondary_3.setVisibility(View.VISIBLE);
         // Hide the "BUST" message for exceeding the remaining points
         TextView bust_TextView = findViewById(R.id.bust);
         bust_TextView.setVisibility(View.GONE);
@@ -322,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -353,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -384,6 +397,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -415,6 +429,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -446,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -477,6 +493,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -508,6 +525,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -538,6 +556,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -570,6 +589,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         // Advance to the next dart
+        advanced_by_number = true;
         advanceToNextDart();
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -585,22 +605,29 @@ public class MainActivity extends AppCompatActivity {
 
     // User has pressed the S, D, or T  multiplier keys
     public void pressS(View view) {
+        // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
+        if (advanced_by_number) {
+            advanced_by_number = false; // Reset the "advanced by number" flag
+        } else {
+            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+        }
         switch (int_current_dart) {
             case 0:
-                int_dart1_multiplier = 1;
+                errorSignal();
                 break;
             case 1:
-                int_dart2_multiplier = 1;
+                int_dart1_multiplier = 1;
                 break;
             case 2:
+                int_dart2_multiplier = 1;
+                break;
+            case 3:
                 int_dart3_multiplier = 1;
                 break;
             default:
                 errorSignal();
                 break;
         }
-        // Advance to the next dart
-        advanceToNextDart();
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -608,22 +635,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressD(View view) {
+        // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
+        if (advanced_by_number) {
+            advanced_by_number = false; // Reset the "advanced by number" flag
+        } else {
+            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+        }
         switch (int_current_dart) {
             case 0:
-                int_dart1_multiplier = 2;
+                errorSignal();
                 break;
             case 1:
-                int_dart2_multiplier = 2;
+                int_dart1_multiplier = 2;
                 break;
             case 2:
+                int_dart2_multiplier = 2;
+                break;
+            case 3:
                 int_dart3_multiplier = 2;
                 break;
             default:
                 errorSignal();
                 break;
         }
-        // Advance to the next dart
-        advanceToNextDart();
         // Enable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(true);
@@ -631,22 +665,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressT(View view) {
+        // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
+        if (advanced_by_number) {
+            advanced_by_number = false; // Reset the "advanced by number" flag
+        } else {
+            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+        }
         switch (int_current_dart) {
             case 0:
-                int_dart1_multiplier = 3;
+                errorSignal();
                 break;
             case 1:
-                int_dart2_multiplier = 3;
+                int_dart1_multiplier = 3;
                 break;
             case 2:
+                int_dart2_multiplier = 3;
+                break;
+            case 3:
                 int_dart3_multiplier = 3;
                 break;
             default:
                 errorSignal();
                 break;
         }
-        // Advance to the next dart
-        advanceToNextDart();
         // Disable the Bull button
         Button button_bull = findViewById(R.id.button_bull);
         button_bull.setEnabled(false);
@@ -661,48 +702,57 @@ public class MainActivity extends AppCompatActivity {
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(false);
         // Create local variables for setting the darts line highlighting
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        TextView text_highlight_primary_1 = findViewById(R.id.primary_highlight_1);
+        TextView text_highlight_primary_2 = findViewById(R.id.primary_highlight_2);
+        TextView text_highlight_primary_3 = findViewById(R.id.primary_highlight_3);
+        TextView text_highlight_secondary_1 = findViewById(R.id.secondary_highlight_1);
+        TextView text_highlight_secondary_2 = findViewById(R.id.secondary_highlight_2);
+        TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
         // Enable the numeric keys except zero
         enableNumericKeys();
         // Disable the zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
-        // If the current dart's points are not zero,
+        // For dart 0, increment to dart 1 but do not change highlighting.
+        // For darts 1 and 2, if the current dart's points are not zero,
         // then the multiplier (S,D,T) is a signal to move on to the next dart.
+        // For dart 3, dart was advanced by number. Do not increment the dart.
         switch (int_current_dart) {
             case 0:
-                errorSignal();
+                if (int_dart1_points == 0) {
+                    int_current_dart = 1;
+                } else {
+                    errorSignal();
+                }
                 break;
             case 1:
                 if (int_dart1_points == 0) {
-                    text_highlight_1.setVisibility(View.VISIBLE);
+                    text_highlight_primary_1.setVisibility(View.VISIBLE);
+                    text_highlight_secondary_1.setVisibility(View.INVISIBLE);
                 } else {
                     int_current_dart = 2;
-                    text_highlight_1.setVisibility(View.INVISIBLE);
-                    text_highlight_2.setVisibility(View.VISIBLE);
+                    text_highlight_primary_1.setVisibility(View.INVISIBLE);
+                    text_highlight_secondary_1.setVisibility(View.VISIBLE);
+                    text_highlight_primary_2.setVisibility(View.VISIBLE);
+                    text_highlight_secondary_2.setVisibility(View.INVISIBLE);
                 }
                 break;
             case 2:
                 if (int_dart2_points == 0) {
-                    text_highlight_2.setVisibility(View.VISIBLE);
+                    text_highlight_primary_2.setVisibility(View.VISIBLE);
+                    text_highlight_secondary_2.setVisibility(View.INVISIBLE);
                 } else {
                     int_current_dart = 3;
-                    text_highlight_2.setVisibility(View.INVISIBLE);
-                    text_highlight_3.setVisibility(View.VISIBLE);
+                    text_highlight_primary_2.setVisibility(View.INVISIBLE);
+                    text_highlight_secondary_2.setVisibility(View.VISIBLE);
+                    text_highlight_primary_3.setVisibility(View.VISIBLE);
+                    text_highlight_secondary_3.setVisibility(View.INVISIBLE);
                 }
                 break;
             case 3:
                 if (int_dart3_points == 0) {
-                    // Disable the multiplier keys
-                    Button button_S = findViewById(R.id.button_S);
-                    button_S.setEnabled(false);
-                    Button button_D = findViewById(R.id.button_D);
-                    button_D.setEnabled(false);
-                    Button button_T = findViewById(R.id.button_T);
-                    button_T.setEnabled(false);
-                    text_highlight_3.setVisibility(View.VISIBLE);
+                    text_highlight_primary_3.setVisibility(View.VISIBLE);
+                    text_highlight_secondary_3.setVisibility(View.INVISIBLE);
                 } else {
                     errorSignal();
                 }
@@ -711,6 +761,13 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal();
                 break;
         }
+        // Disable the multiplier keys
+        Button button_S = findViewById(R.id.button_S);
+        button_S.setEnabled(false);
+        Button button_D = findViewById(R.id.button_D);
+        button_D.setEnabled(false);
+        Button button_T = findViewById(R.id.button_T);
+        button_T.setEnabled(false);
         displayDartsStatusLine();
     }
 
@@ -869,9 +926,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void advanceToNextDart() {
         // Create local variables for setting the darts line highlighting
-        TextView text_highlight_1 = findViewById(R.id.highlight_1);
-        TextView text_highlight_2 = findViewById(R.id.highlight_2);
-        TextView text_highlight_3 = findViewById(R.id.highlight_3);
+        TextView text_highlight_primary_1 = findViewById(R.id.primary_highlight_1);
+        TextView text_highlight_primary_2 = findViewById(R.id.primary_highlight_2);
+        TextView text_highlight_primary_3 = findViewById(R.id.primary_highlight_3);
+        TextView text_highlight_secondary_1 = findViewById(R.id.secondary_highlight_1);
+        TextView text_highlight_secondary_2 = findViewById(R.id.secondary_highlight_2);
+        TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
         // Increment the current dart variable
         if (int_current_dart < 3) {
             int_current_dart = int_current_dart + 1;
@@ -883,12 +943,16 @@ public class MainActivity extends AppCompatActivity {
             case 1: // Do nothing
                 break;
             case 2:
-                text_highlight_1.setVisibility(View.INVISIBLE);
-                text_highlight_2.setVisibility(View.VISIBLE);
+                text_highlight_primary_1.setVisibility(View.INVISIBLE);
+                text_highlight_secondary_1.setVisibility(View.VISIBLE);
+                text_highlight_primary_2.setVisibility(View.VISIBLE);
+                text_highlight_secondary_2.setVisibility(View.INVISIBLE);
                 break;
             case 3:
-                text_highlight_2.setVisibility(View.INVISIBLE);
-                text_highlight_3.setVisibility(View.VISIBLE);
+                text_highlight_primary_2.setVisibility(View.INVISIBLE);
+                text_highlight_secondary_2.setVisibility(View.VISIBLE);
+                text_highlight_primary_3.setVisibility(View.VISIBLE);
+                text_highlight_secondary_3.setVisibility(View.INVISIBLE);
                 break;
             default:
                 errorSignal();
@@ -928,7 +992,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (int_dart1_points == 25) {
             str_dart1_points = " B";
         } else {
-            str_dart1_points = String.format("%1$2s", int_dart1_points);
+            str_dart1_points = Integer.toString(int_dart1_points);
         }
         str_dart1_status = "1: " + str_dart1_multiplier + " " + str_dart1_points;
         TextView text_dart_1 = findViewById(R.id.text_dart_1);
