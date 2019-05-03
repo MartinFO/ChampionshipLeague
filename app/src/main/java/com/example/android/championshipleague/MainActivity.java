@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int int_dart3_points = 0;
     private int int_teamA_score = 301;
     private int int_teamB_score = 301;
-    private boolean advanced_by_number = false;
+    private boolean bool_advanced_by_number = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         int_dart1_points = 0;
         int_dart2_points = 0;
         int_dart3_points = 0;
+        bool_advanced_by_number = false;
         // Enable all buttons except the zero and post buttons
         enableAllButtons();
         // Disable the zero and post buttons
@@ -209,6 +210,15 @@ public class MainActivity extends AppCompatActivity {
         button.setEnabled(true);
     }
 
+    private void disableMultiplierButtons() {
+        Button button = findViewById(R.id.button_S);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_D);
+        button.setEnabled(false);
+        button = findViewById(R.id.button_T);
+        button.setEnabled(false);
+    }
+
 
     // User has pressed a numeric key
     public void press1(View view) {
@@ -237,9 +247,10 @@ public class MainActivity extends AppCompatActivity {
                 if (int_dart3_points >= 10) {
                     bool_points_less_than_ten = false;
                 }
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press1");
                 break;
         }
         if (bool_points_less_than_ten) { // If the dart has the value of 1
@@ -257,6 +268,16 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
+        if (int_current_dart < 3) {
+            // Enable the multiplier keys
+            Button button_S = findViewById(R.id.button_S);
+            button_S.setEnabled(true);
+            Button button_D = findViewById(R.id.button_D);
+            button_D.setEnabled(true);
+            Button button_T = findViewById(R.id.button_T);
+            button_T.setEnabled(true);
+        }
+
     }
 
     public void press2(View view) {
@@ -285,9 +306,10 @@ public class MainActivity extends AppCompatActivity {
                 if (int_dart3_points >= 10) {
                     bool_points_less_than_ten = false;
                 }
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_2");
                 break;
         }
         if (bool_points_less_than_ten) { // If the dart has the value of 2
@@ -310,6 +332,16 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
+        if (int_current_dart < 3) {
+            // Enable the multiplier keys
+            Button button_S = findViewById(R.id.button_S);
+            button_S.setEnabled(true);
+            Button button_D = findViewById(R.id.button_D);
+            button_D.setEnabled(true);
+            Button button_T = findViewById(R.id.button_T);
+            button_T.setEnabled(true);
+        }
+
     }
 
     public void press3(View view) {
@@ -327,21 +359,38 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 3;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_3");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press4(View view) {
@@ -359,21 +408,38 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 4;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_4");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press5(View view) {
@@ -391,21 +457,39 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 5;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_5");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press6(View view) {
@@ -423,21 +507,39 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 6;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_6");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press7(View view) {
@@ -455,21 +557,39 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 7;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_7");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press8(View view) {
@@ -487,21 +607,39 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 8;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_8");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press9(View view) {
@@ -519,28 +657,46 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points + 9;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_9");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     public void press0(View view) {
         // Increase the value of the points for the current dart
         switch (int_current_dart) {
             case 0:
-                errorSignal();
+                errorSignal("press_0a");
                 break;
             case 1:
                 int_dart1_points = 10 * int_dart1_points;
@@ -550,21 +706,38 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 10 * int_dart3_points;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_0b");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
+        if (int_current_dart < 3) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     // User has pressed the Bull key
@@ -583,37 +756,55 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 int_dart3_points = 25;
+
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Bull");
                 break;
         }
         // Advance to the next dart
-        advanced_by_number = true;
-        advanceToNextDart();
+        bool_advanced_by_number = true;
+        if (int_current_dart < 3) {
+            advanceToNextDart();
+        }
+
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        // Enable all the keys except zero and post
-        enableAllButtons();
-        // Disable the zero key
-        Button button_zero = findViewById(R.id.button_0);
-        button_zero.setEnabled(false);
-        // Disable the Post key
-        Button button_post = findViewById(R.id.button_post);
-        button_post.setEnabled(false);
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
+            // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
+            // Enable all the keys except zero
+            enableAllButtons();
+            // Disable the zero key
+            Button button_zero = findViewById(R.id.button_0);
+            button_zero.setEnabled(false);
+        }
+        if (int_current_dart == 3 && int_dart3_points != 0) {
+            // Current dart is the third dart and points have been entered.
+            // Disable all except Post, Reset and Game Reset
+            disableAllButtons();
+            Button button_post = findViewById(R.id.button_post);
+            button_post.setEnabled(true);
+            Button button_reset = findViewById(R.id.button_reset);
+            button_reset.setEnabled(true);
+            Button button_game_reset = findViewById(R.id.button_game_reset);
+            button_game_reset.setEnabled(true);
+        }
     }
 
     // User has pressed the S, D, or T  multiplier keys
     public void pressS(View view) {
         // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
-        if (advanced_by_number) {
-            advanced_by_number = false; // Reset the "advanced by number" flag
+        if (bool_advanced_by_number) {
+            bool_advanced_by_number = false; // Reset the "advanced by number" flag
         } else {
-            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            if (int_current_dart < 3) {
+                advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            }
+
         }
         switch (int_current_dart) {
             case 0:
-                errorSignal();
+                errorSignal("press_Sa");
                 break;
             case 1:
                 int_dart1_multiplier = 1;
@@ -625,7 +816,7 @@ public class MainActivity extends AppCompatActivity {
                 int_dart3_multiplier = 1;
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Sb");
                 break;
         }
         // Enable the Bull button
@@ -636,14 +827,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void pressD(View view) {
         // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
-        if (advanced_by_number) {
-            advanced_by_number = false; // Reset the "advanced by number" flag
+        if (bool_advanced_by_number) {
+            bool_advanced_by_number = false; // Reset the "advanced by number" flag
         } else {
-            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            if (int_current_dart < 3) {
+                advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            }
+
         }
         switch (int_current_dart) {
             case 0:
-                errorSignal();
+                errorSignal("press_Da");
                 break;
             case 1:
                 int_dart1_multiplier = 2;
@@ -655,7 +849,7 @@ public class MainActivity extends AppCompatActivity {
                 int_dart3_multiplier = 2;
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Db");
                 break;
         }
         // Enable the Bull button
@@ -666,14 +860,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void pressT(View view) {
         // Advance to the next dart only if the dart was not advanced by a number (3-9,0,Bull)
-        if (advanced_by_number) {
-            advanced_by_number = false; // Reset the "advanced by number" flag
+        if (bool_advanced_by_number) {
+            bool_advanced_by_number = false; // Reset the "advanced by number" flag
         } else {
-            advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            if (int_current_dart < 3) {
+                advanceToNextDart(); // The dart was not advanced by a number, so it is advanced by the multiplier
+            }
+
         }
         switch (int_current_dart) {
             case 0:
-                errorSignal();
+                errorSignal("press_Ta");
                 break;
             case 1:
                 int_dart1_multiplier = 3;
@@ -685,7 +882,7 @@ public class MainActivity extends AppCompatActivity {
                 int_dart3_multiplier = 3;
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Tb");
                 break;
         }
         // Disable the Bull button
@@ -722,7 +919,7 @@ public class MainActivity extends AppCompatActivity {
                 if (int_dart1_points == 0) {
                     int_current_dart = 1;
                 } else {
-                    errorSignal();
+                    errorSignal("press_Multiplier_a");
                 }
                 break;
             case 1:
@@ -754,11 +951,11 @@ public class MainActivity extends AppCompatActivity {
                     text_highlight_primary_3.setVisibility(View.VISIBLE);
                     text_highlight_secondary_3.setVisibility(View.INVISIBLE);
                 } else {
-                    errorSignal();
+                    errorSignal("press_Multiplier_b");
                 }
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Multiplier_c");
                 break;
         }
         // Disable the multiplier keys
@@ -828,7 +1025,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             default:
-                errorSignal();
+                errorSignal("press_Post_a");
                 break;
         }
         if (bust_TextView.getVisibility() == View.GONE && game_TextView.getVisibility() == View.GONE) { // Player has not busted and Team has not won
@@ -848,7 +1045,7 @@ public class MainActivity extends AppCompatActivity {
                 teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
             } else {
-                errorSignal();
+                errorSignal("press_Post_b");
             }
         } else { // Player has busted
             if (bust_TextView.getVisibility() != View.GONE) {
@@ -886,7 +1083,7 @@ public class MainActivity extends AppCompatActivity {
             teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
         } else {
-            errorSignal();
+            errorSignal("press_AB");
         }
 
     }
@@ -933,9 +1130,11 @@ public class MainActivity extends AppCompatActivity {
         TextView text_highlight_secondary_2 = findViewById(R.id.secondary_highlight_2);
         TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
         // Increment the current dart variable
-        if (int_current_dart < 3) {
-            int_current_dart = int_current_dart + 1;
+        if (int_current_dart == 3) {
+            errorSignal("advanceTNDa");
         }
+        int_current_dart = int_current_dart + 1;
+
         // Change the status line highlighting
         switch (int_current_dart) {
             case 0: // Do nothing
@@ -955,7 +1154,7 @@ public class MainActivity extends AppCompatActivity {
                 text_highlight_secondary_3.setVisibility(View.INVISIBLE);
                 break;
             default:
-                errorSignal();
+                errorSignal("advanceTNDb");
                 break;
         }
 
@@ -984,7 +1183,7 @@ public class MainActivity extends AppCompatActivity {
                 str_dart1_multiplier = "T";
                 break;
             default:
-                errorSignal();
+                errorSignal("displayDSLa");
                 break;
         }
         if (int_dart1_points == 0) {
@@ -1009,7 +1208,7 @@ public class MainActivity extends AppCompatActivity {
                 str_dart2_multiplier = "T";
                 break;
             default:
-                errorSignal();
+                errorSignal("displayDSLb");
                 break;
         }
         if (int_dart2_points == 0) {
@@ -1034,7 +1233,7 @@ public class MainActivity extends AppCompatActivity {
                 str_dart3_multiplier = "T";
                 break;
             default:
-                errorSignal();
+                errorSignal("displayDSLc");
                 break;
         }
         if (int_dart3_points == 0) {
@@ -1049,14 +1248,14 @@ public class MainActivity extends AppCompatActivity {
         text_dart_3.setText(str_dart3_status);
     }
 
-    private void errorSignal() {
+    private void errorSignal(String error_source) {
         // Signals an error by changing "Team A" and "Team B" to "Error"
         // Error is most likely an unexpected default in a case statement
         String error_string = "Error";
         TextView error_A_TextView = findViewById(R.id.teamA);
         error_A_TextView.setText(error_string);
         TextView error_B_TextView = findViewById(R.id.teamB);
-        error_B_TextView.setText(error_string);
+        error_B_TextView.setText(error_source);
     }
 
 
