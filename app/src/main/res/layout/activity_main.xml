@@ -17,7 +17,9 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/teamB"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scoreA"
+        app:layout_constraintVertical_chainStyle="spread_inside"/>
 
     <TextView
         android:id="@+id/scoreA"
@@ -30,7 +32,8 @@
         android:background="#ccff90"
         app:layout_constraintLeft_toLeftOf="@id/teamA"
         app:layout_constraintRight_toRightOf="@id/teamA"
-        app:layout_constraintTop_toBottomOf="@id/teamA"/>
+        app:layout_constraintTop_toBottomOf="@id/teamA"
+        app:layout_constraintBottom_toTopOf="@id/text_dart_1"/>
 
     <!-- Team B label and score -->
     <TextView
@@ -59,11 +62,10 @@
     <!-- Current throw status line -->
     <TextView
         android:id="@+id/primary_highlight_1"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_primary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_cyan"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -72,11 +74,10 @@
 
     <TextView
         android:id="@+id/primary_highlight_2"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_primary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_cyan"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toRightOf="@id/primary_highlight_1"
@@ -84,11 +85,10 @@
 
     <TextView
         android:id="@+id/primary_highlight_3"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_primary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_cyan"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toRightOf="@id/primary_highlight_2"
@@ -96,11 +96,10 @@
 
     <TextView
         android:id="@+id/secondary_highlight_1"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_secondary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_amber"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -109,11 +108,10 @@
 
     <TextView
         android:id="@+id/secondary_highlight_2"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_secondary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_amber"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toRightOf="@id/secondary_highlight_1"
@@ -122,11 +120,10 @@
 
     <TextView
         android:id="@+id/secondary_highlight_3"
-        android:background="@drawable/status_highlight"
+        android:background="@drawable/status_highlight_secondary"
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/color_amber"
         app:layout_constraintTop_toTopOf="@id/text_dart_1"
         app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
         app:layout_constraintLeft_toRightOf="@id/secondary_highlight_2"
@@ -143,7 +140,8 @@
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/text_dart_1_multiplier"
-        app:layout_constraintTop_toBottomOf="@id/scoreA"/>
+        app:layout_constraintTop_toBottomOf="@id/scoreA"
+        app:layout_constraintBottom_toTopOf="@id/button_1"/>
 
     <TextView
         android:id="@+id/text_dart_1_multiplier"
@@ -235,65 +233,76 @@
         android:id="@+id/button_1"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/numeric_key_button"
         android:elevation="5dp"
         android:onClick="press1"
         android:text="@string/key_1"
         android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/text_dart_1"
         app:layout_constraintBottom_toTopOf="@id/button_4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_2"
-        app:layout_constraintTop_toBottomOf="@id/text_dart_1"/>
+        />
 
     <Button
         android:id="@+id/button_2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press2"
         android:text="@string/key_2"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/button_5"
         app:layout_constraintLeft_toRightOf="@id/button_1"
         app:layout_constraintRight_toLeftOf="@id/button_3"
-        app:layout_constraintTop_toBottomOf="@id/text_dart_1"/>
+        app:layout_constraintTop_toTopOf="@id/button_1"/>
 
     <Button
         android:id="@+id/button_3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press3"
         android:text="@string/key_3"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/button_6"
         app:layout_constraintLeft_toRightOf="@id/button_2"
         app:layout_constraintRight_toLeftOf="@id/button_post"
-        app:layout_constraintTop_toBottomOf="@id/text_dart_1"/>
+        app:layout_constraintTop_toTopOf="@id/button_1"/>
 
     <Button
         android:id="@+id/button_post"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:background="@drawable/post_button"
         android:onClick="pressPost"
         android:text="@string/key_post"
         android:textSize="20sp"
+        android:textColor="@color/gray_dark"
         app:layout_constraintBottom_toTopOf="@id/button_toggle_a_b"
         app:layout_constraintLeft_toRightOf="@id/button_3"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_dart_1"/>
+        app:layout_constraintTop_toTopOf="@id/button_1"/>
 
     <Button
         android:id="@+id/button_4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press4"
         android:text="@string/key_4"
         android:textSize="30sp"
@@ -308,7 +317,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press5"
         android:text="@string/key_5"
         android:textSize="30sp"
@@ -322,7 +331,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press6"
         android:text="@string/key_6"
         android:textSize="30sp"
@@ -336,7 +345,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/ab_button"
         android:onClick="pressAB"
         android:text="@string/key_AB"
         android:textSize="20sp"
@@ -350,7 +359,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press7"
         android:text="@string/key_7"
         android:textSize="30sp"
@@ -364,7 +373,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press8"
         android:text="@string/key_8"
         android:textSize="30sp"
@@ -378,7 +387,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press9"
         android:text="@string/key_9"
         android:textSize="30sp"
@@ -392,7 +401,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:background="@drawable/multiplier_button"
         android:onClick="pressS"
         android:text="@string/key_S"
         android:textSize="30sp"
@@ -405,8 +414,10 @@
         android:id="@+id/button_0"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/numeric_key_button"
         android:onClick="press0"
         android:text="@string/key_0"
         android:textSize="30sp"
@@ -419,12 +430,14 @@
         android:id="@+id/button_bull"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bull_button"
         android:onClick="pressBull"
         android:text="@string/key_bull"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/button_game_reset"
+        app:layout_constraintBottom_toBottomOf="@id/button_0"
         app:layout_constraintLeft_toRightOf="@id/button_0"
         app:layout_constraintRight_toLeftOf="@id/button_D"
         app:layout_constraintTop_toBottomOf="@id/button_8"/>
@@ -433,12 +446,14 @@
         android:id="@+id/button_D"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/multiplier_button"
         android:onClick="pressD"
         android:text="@string/key_D"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/button_game_reset"
+        app:layout_constraintBottom_toBottomOf="@id/button_0"
         app:layout_constraintLeft_toRightOf="@id/button_bull"
         app:layout_constraintRight_toLeftOf="@id/button_T"
         app:layout_constraintTop_toBottomOf="@id/button_9"/>
@@ -447,12 +462,14 @@
         android:id="@+id/button_T"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="4dp"
-        android:background="@drawable/keypad_button"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/multiplier_button"
         android:onClick="pressT"
         android:text="@string/key_T"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@id/button_game_reset"
+        app:layout_constraintBottom_toBottomOf="@id/button_0"
         app:layout_constraintLeft_toRightOf="@id/button_D"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_S"/>
@@ -464,26 +481,31 @@
         android:id="@+id/button_game_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:layout_marginEnd="50dp"
+        android:background="@drawable/game_reset_button"
         android:onClick="pressGameReset"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/key_game_reset"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_reset"/>
+        app:layout_constraintTop_toBottomOf="@id/button_0"
+        app:layout_constraintLeft_toLeftOf="@id/button_0"
+        app:layout_constraintRight_toRightOf="@id/button_bull" />
 
     <Button
         android:id="@+id/button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:background="@drawable/reset_button"
         android:onClick="pressReset"
+        android:layout_marginBottom="5dp"
         android:text="@string/key_reset"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_game_reset"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="@id/button_D"
+        app:layout_constraintRight_toRightOf="@id/button_T"/>
 
     <!-- Team has busted by exceeding their remaining points -->
     <TextView

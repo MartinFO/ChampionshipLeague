@@ -261,7 +261,20 @@ public class MainActivity extends AppCompatActivity {
             Button button_bull = findViewById(R.id.button_bull);
             button_bull.setEnabled(false);
         } else { // If the dart has the value of 11
-            disableNumericKeys();
+            // Advance to the next dart
+            bool_advanced_by_number = true;
+            if (int_current_dart < 3) {
+                advanceToNextDart();
+            }
+            if (int_current_dart == 3 && int_dart3_points != 0) {
+                disableAllButtons();
+                Button button_post = findViewById(R.id.button_post);
+                button_post.setEnabled(true);
+                Button button_reset = findViewById(R.id.button_reset);
+                button_reset.setEnabled(true);
+                Button button_game_reset = findViewById(R.id.button_game_reset);
+                button_game_reset.setEnabled(true);
+            }
         }
         // Display the new set of multipliers and points
         displayDartsStatusLine();
@@ -322,7 +335,20 @@ public class MainActivity extends AppCompatActivity {
             Button button_bull = findViewById(R.id.button_bull);
             button_bull.setEnabled(false);
         } else { // If the dart has the value of 12
-            disableNumericKeys();
+            // Advance to the next dart
+            bool_advanced_by_number = true;
+            if (int_current_dart < 3) {
+                advanceToNextDart();
+            }
+            if (int_current_dart == 3 && int_dart3_points != 0) {
+                disableAllButtons();
+                Button button_post = findViewById(R.id.button_post);
+                button_post.setEnabled(true);
+                Button button_reset = findViewById(R.id.button_reset);
+                button_reset.setEnabled(true);
+                Button button_game_reset = findViewById(R.id.button_game_reset);
+                button_game_reset.setEnabled(true);
+            }
         }
         // Disable the Bull key
         Button button_bull = findViewById(R.id.button_bull);
@@ -719,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Display the new set of multipliers and points
         displayDartsStatusLine();
-        if (int_current_dart < 3) {
+        if (int_current_dart < 3 || (int_current_dart == 3 && int_dart3_points == 0)) {
             // Current dart is 1 or 2, OR dart is 3 but no points have been entered.
             // Enable all the keys except zero
             enableAllButtons();
@@ -727,7 +753,7 @@ public class MainActivity extends AppCompatActivity {
             Button button_zero = findViewById(R.id.button_0);
             button_zero.setEnabled(false);
         }
-        if (int_current_dart == 3) {
+        if (int_current_dart == 3 && int_dart3_points > 0) {
             // Current dart is the third dart and points have been entered.
             // Disable all except Post, Reset and Game Reset
             disableAllButtons();
