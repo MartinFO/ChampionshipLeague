@@ -5,7 +5,7 @@
     <size
         android:width="105dp"
         android:height="40dp" />
-    <solid android:color="@color/blue_post" />
+    <solid android:color="@color/post_color" />
     <stroke
         android:width="0.75dp"
         android:color="@color/gray_dark"/>

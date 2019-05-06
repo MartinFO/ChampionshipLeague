@@ -8,5 +8,5 @@
     <solid android:color="@color/color_amber" />
     <stroke
         android:width="0.5dp"
-        android:color="@color/color_amber_outline"/>
+        android:color="@color/amber_outline"/>
 </shape>
