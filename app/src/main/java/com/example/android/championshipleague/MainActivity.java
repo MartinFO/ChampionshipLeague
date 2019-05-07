@@ -7,7 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import java.util.Locale;
+
+import android.content.DialogInterface;
+import android.app.AlertDialog;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private int int_teamA_score = 301;
     private int int_teamB_score = 301;
     private boolean bool_advanced_by_number = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,59 @@ public class MainActivity extends AppCompatActivity {
         text_highlight_secondary_2.setVisibility(View.VISIBLE);
         TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
         text_highlight_secondary_3.setVisibility(View.VISIBLE);
+
+        Button confirm_reset_button;
+        confirm_reset_button = (Button) findViewById(R.id.button_game_reset);
+        final AlertDialog.Builder builder;
+        builder = new AlertDialog.Builder(this);
+        confirm_reset_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Set the message and title from the strings.xml file
+                builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title);
+
+                // Performing action on button click
+                builder.setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Reset the game
+                                // teamA_score_TextView is Team A's score view
+                                TextView teamA_score_TextView;
+                                // teamB_score_TextView is Team B's score view
+                                TextView teamB_score_TextView;
+                                // Initialize variables for current turn
+                                initializeVariablesForNextTurn();
+                                // Display initialized darts status
+                                displayDartsStatusLine();
+                                // Initialize both teams' scores
+                                int_teamA_score = 301;
+                                int_teamB_score = 301;
+                                // Post the new score for team A
+                                teamA_score_TextView = findViewById(R.id.scoreA);
+                                teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
+                                // Post the new score for team B
+                                teamB_score_TextView = findViewById(R.id.scoreB);
+                                teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamB_score));
+                                // Let Team A take the first turn
+                                current_team_string = "Team A";
+                                teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
+                                teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        });
+
     }
 
     private void initializeVariablesForNextTurn() {
@@ -1027,7 +1086,7 @@ public class MainActivity extends AppCompatActivity {
                     teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
                     teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
-                } else { // Team A has a valid score
+                } else { // Team A has a score greater than zero
                     int_teamA_score = int_teamA_score - int_total_score;
                     teamA_score_TextView = findViewById(R.id.scoreA);
                     teamA_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamA_score));
@@ -1044,7 +1103,7 @@ public class MainActivity extends AppCompatActivity {
                     teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
                     teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
-                } else { // Team B has a valid score
+                } else { // Team B has a score greater than zero
                     int_teamB_score = int_teamB_score - int_total_score;
                     teamB_score_TextView = findViewById(R.id.scoreB);
                     teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%1d", int_teamB_score));
@@ -1126,6 +1185,7 @@ public class MainActivity extends AppCompatActivity {
         TextView teamA_score_TextView;
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView;
+
 
         // Initialize variables for current turn
         initializeVariablesForNextTurn();

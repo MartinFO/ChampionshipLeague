@@ -8,6 +8,7 @@
     android:padding="4dp"
     tools:context=".MainActivity">
 
+
     <!-- Team A label and score -->
     <TextView
         android:id="@+id/teamA"
@@ -482,7 +483,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/game_reset_button"
-        android:onClick="pressGameReset"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:layout_marginTop="10dp"
@@ -540,6 +540,8 @@
         android:elevation="10dp"
         android:visibility="gone"
         />
+
+
 
 
 
