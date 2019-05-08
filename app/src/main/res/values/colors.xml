@@ -16,4 +16,5 @@
     <color name="a_b_color">#d4e157</color>
     <color name="post_color">#90caf9</color>
     <color name="reset_color">#ff9800</color>
+    <color name="game_background_color">#D0FFFFFF</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.android.championshipleague;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Set the message and title from the strings.xml file
-                builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title);
+                builder.setMessage(R.string.dialog_message);
 
                 // Performing action on button click
                 builder.setCancelable(false)
@@ -139,10 +140,15 @@ public class MainActivity extends AppCompatActivity {
         TextView text_highlight_secondary_3 = findViewById(R.id.secondary_highlight_3);
         text_highlight_secondary_3.setVisibility(View.VISIBLE);
         // Hide the "BUST" message for exceeding the remaining points
-        TextView bust_TextView = findViewById(R.id.bust);
-        bust_TextView.setVisibility(View.GONE);
-        TextView game_TextView = findViewById(R.id.game_won);
-        game_TextView.setVisibility(View.GONE);
+        TextView bust_textview = findViewById(R.id.bust);
+        bust_textview.setVisibility(View.GONE);
+        TextView bust_background_textview = findViewById(R.id.bust_background);
+        bust_background_textview.setVisibility(View.INVISIBLE);
+        // Hide the "GAME" message for winning the game
+        TextView game_textview = findViewById(R.id.game_won);
+        game_textview.setVisibility(View.GONE);
+        TextView game_background_textview = findViewById(R.id.game_background);
+        game_background_textview.setVisibility(View.INVISIBLE);
     }
 
     private void disableAllButtons() {
@@ -340,6 +346,9 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
         if (int_current_dart < 3) {
             // Enable the multiplier keys
             Button button_S = findViewById(R.id.button_S);
@@ -417,6 +426,9 @@ public class MainActivity extends AppCompatActivity {
         // Enable the Post key
         Button button_post = findViewById(R.id.button_post);
         button_post.setEnabled(true);
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
         if (int_current_dart < 3) {
             // Enable the multiplier keys
             Button button_S = findViewById(R.id.button_S);
@@ -476,6 +488,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press4(View view) {
@@ -525,6 +540,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press5(View view) {
@@ -575,6 +593,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press6(View view) {
@@ -625,6 +646,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press7(View view) {
@@ -675,6 +699,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press8(View view) {
@@ -725,6 +752,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press9(View view) {
@@ -775,6 +805,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     public void press0(View view) {
@@ -823,6 +856,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     // User has pressed the Bull key
@@ -874,6 +910,9 @@ public class MainActivity extends AppCompatActivity {
             Button button_game_reset = findViewById(R.id.button_game_reset);
             button_game_reset.setEnabled(true);
         }
+        // Disable the A/B key
+        Button button_ab = findViewById(R.id.button_toggle_a_b);
+        button_ab.setEnabled(false);
     }
 
     // User has pressed the S, D, or T  multiplier keys
@@ -1063,10 +1102,12 @@ public class MainActivity extends AppCompatActivity {
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView = findViewById(R.id.scoreB);
 
-        // bust_TextView is used to indicate that the darts total exceeds the player's score
-        TextView bust_TextView = findViewById(R.id.bust);
-        // game_TextView is used to indicate that a player has won the game
-        TextView game_TextView = findViewById(R.id.game_won);
+        // bust_textview and bust_background_textview are used to indicate that the darts total exceeds the player's score
+        TextView bust_textview = findViewById(R.id.bust);
+        TextView bust_background_textview = findViewById(R.id.bust_background);
+        // game_textview and game_background_textview are used to indicate that a player has won the game
+        TextView game_textview = findViewById(R.id.game_won);
+        TextView game_background_textview = findViewById(R.id.game_background);
 
 
         // Compute total score for all three darts
@@ -1078,10 +1119,12 @@ public class MainActivity extends AppCompatActivity {
             case "Team A":
                 int_temp_score = int_teamA_score - int_total_score;
                 if (int_temp_score == 0) { // Team A has won the game
-                    game_TextView.setVisibility(View.VISIBLE);
+                    game_textview.setVisibility(View.VISIBLE);
+                    game_background_textview.setVisibility(View.VISIBLE);
                 }
                 if (int_temp_score < 0) { // Team A has busted
-                    bust_TextView.setVisibility(View.VISIBLE);
+                    bust_textview.setVisibility(View.VISIBLE);
+                    bust_background_textview.setVisibility(View.VISIBLE);
                     current_team_string = "Team B";
                     teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
                     teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
@@ -1095,10 +1138,12 @@ public class MainActivity extends AppCompatActivity {
             case "Team B":
                 int_temp_score = int_teamB_score - int_total_score;
                 if (int_temp_score == 0) { // Team B has won the game
-                    game_TextView.setVisibility(View.VISIBLE);
+                    game_textview.setVisibility(View.VISIBLE);
+                    game_background_textview.setVisibility(View.VISIBLE);
                 }
                 if (int_temp_score < 0) { // Team B has busted
-                    bust_TextView.setVisibility(View.VISIBLE);
+                    bust_textview.setVisibility(View.VISIBLE);
+                    bust_background_textview.setVisibility(View.VISIBLE);
                     current_team_string = "Team A";
                     teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
                     teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
@@ -1113,7 +1158,7 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal("press_Post_a");
                 break;
         }
-        if (bust_TextView.getVisibility() == View.GONE && game_TextView.getVisibility() == View.GONE) { // Player has not busted and Team has not won
+        if (bust_textview.getVisibility() == View.GONE && game_textview.getVisibility() == View.GONE) { // Player has not busted and Team has not won
             // Initialize the variables for the next turn
             initializeVariablesForNextTurn();
             // Display the new information on the darts status line
@@ -1133,7 +1178,7 @@ public class MainActivity extends AppCompatActivity {
                 errorSignal("press_Post_b");
             }
         } else { // Player has busted
-            if (bust_TextView.getVisibility() != View.GONE) {
+            if (bust_textview.getVisibility() != View.GONE) {
                 disableAllButtons();
                 TextView reset_TextView = findViewById(R.id.button_reset);
                 reset_TextView.setEnabled(true);
