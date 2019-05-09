@@ -34,7 +34,7 @@
         app:layout_constraintLeft_toLeftOf="@id/teamA"
         app:layout_constraintRight_toRightOf="@id/teamA"
         app:layout_constraintTop_toBottomOf="@id/teamA"
-        app:layout_constraintBottom_toTopOf="@id/text_dart_1"/>
+        app:layout_constraintBottom_toTopOf="@id/dart_1_label"/>
 
     <!-- Team B label and score -->
     <TextView
@@ -67,8 +67,8 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/primary_highlight_2"
         android:visibility="visible"/>
@@ -79,8 +79,8 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toRightOf="@id/primary_highlight_1"
         app:layout_constraintRight_toLeftOf="@id/primary_highlight_3"/>
 
@@ -90,8 +90,8 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toRightOf="@id/primary_highlight_2"
         app:layout_constraintRight_toRightOf="parent"/>
 
@@ -101,8 +101,8 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/secondary_highlight_2"
         android:visibility="visible"/>
@@ -113,8 +113,8 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toRightOf="@id/secondary_highlight_1"
         app:layout_constraintRight_toLeftOf="@id/secondary_highlight_3"
         android:visibility="visible"/>
@@ -125,109 +125,74 @@
         android:layout_width="0dp"
         app:layout_constraintWidth_percent="0.3"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/text_dart_1"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
         app:layout_constraintLeft_toRightOf="@id/secondary_highlight_2"
         app:layout_constraintRight_toRightOf="parent"
         android:visibility="visible"/>
 
     <TextView
-        android:id="@+id/text_dart_1"
+        android:id="@+id/dart_1_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:text="@string/first_dart_label"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_1_multiplier"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintTop_toBottomOf="@id/scoreA"
         app:layout_constraintBottom_toTopOf="@id/button_1"/>
 
     <TextView
-        android:id="@+id/text_dart_1_multiplier"
+        android:id="@+id/dart_1_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/initial_multiplier"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_1"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_1_points"/>
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
+        app:layout_constraintLeft_toRightOf="@id/dart_1_label"/>
 
     <TextView
-        android:id="@+id/text_dart_1_points"
+        android:id="@+id/dart_2_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/initial_score"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_1_multiplier"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_2"/>
-
-    <TextView
-        android:id="@+id/text_dart_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
         android:text="@string/second_dart_label"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_1_points"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_2_multiplier"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"/>
 
     <TextView
-        android:id="@+id/text_dart_2_multiplier"
+        android:id="@+id/dart_2_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/initial_multiplier"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_2"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_2_points"/>
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
+        app:layout_constraintLeft_toRightOf="@id/dart_2_label"/>
 
     <TextView
-        android:id="@+id/text_dart_2_points"
+        android:id="@+id/dart_3_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/initial_score"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_2_multiplier"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_3"/>
-
-    <TextView
-        android:id="@+id/text_dart_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
         android:text="@string/third_dart_label"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_2_points"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_3_multiplier"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintTop_toTopOf="@id/dart_1_label"
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"/>
 
     <TextView
-        android:id="@+id/text_dart_3_multiplier"
+        android:id="@+id/dart_3_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/initial_multiplier"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_3"
-        app:layout_constraintRight_toLeftOf="@id/text_dart_3_points"/>
-
-    <TextView
-        android:id="@+id/text_dart_3_points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="@string/initial_score"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_dart_1"
-        app:layout_constraintLeft_toRightOf="@id/text_dart_3_multiplier"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@id/dart_1_label"
+        app:layout_constraintLeft_toRightOf="@id/dart_3_label"/>
 
     <!-- Keypad Grid -->
     <Button
@@ -243,7 +208,7 @@
         android:onClick="press1"
         android:text="@string/key_1"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@id/text_dart_1"
+        app:layout_constraintTop_toBottomOf="@id/dart_1_label"
         app:layout_constraintBottom_toTopOf="@id/button_4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_2"

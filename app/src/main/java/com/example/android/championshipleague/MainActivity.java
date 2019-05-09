@@ -1,7 +1,6 @@
 package com.example.android.championshipleague;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -1305,7 +1304,7 @@ public class MainActivity extends AppCompatActivity {
         // Display dart 1 multiplier and points
         switch (int_dart1_multiplier) {
             case 1:
-                str_dart1_multiplier = " ";
+                str_dart1_multiplier = "";
                 break;
             case 2:
                 str_dart1_multiplier = "D";
@@ -1324,13 +1323,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart1_points = Integer.toString(int_dart1_points);
         }
-        str_dart1_status = "1: " + str_dart1_multiplier + " " + str_dart1_points;
-        TextView text_dart_1 = findViewById(R.id.text_dart_1);
-        text_dart_1.setText(str_dart1_status);
+        str_dart1_status = " " + str_dart1_multiplier + " " + str_dart1_points;
+        TextView text_dart_1_status = findViewById(R.id.dart_1_status);
+        text_dart_1_status.setText(str_dart1_status);
         // Display dart 2 multiplier and points
         switch (int_dart2_multiplier) {
             case 1:
-                str_dart2_multiplier = " ";
+                str_dart2_multiplier = "";
                 break;
             case 2:
                 str_dart2_multiplier = "D";
@@ -1349,13 +1348,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart2_points = Integer.toString(int_dart2_points);
         }
-        str_dart2_status = "2: " + str_dart2_multiplier + " " + str_dart2_points;
-        TextView text_dart_2 = findViewById(R.id.text_dart_2);
-        text_dart_2.setText(str_dart2_status);
+        str_dart2_status = " " + str_dart2_multiplier + " " + str_dart2_points;
+        TextView text_dart_2_status = findViewById(R.id.dart_2_status);
+        text_dart_2_status.setText(str_dart2_status);
         // Display dart 3 multiplier and points
         switch (int_dart3_multiplier) {
             case 1:
-                str_dart3_multiplier = " ";
+                str_dart3_multiplier = "";
                 break;
             case 2:
                 str_dart3_multiplier = "D";
@@ -1374,9 +1373,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             str_dart3_points = Integer.toString(int_dart3_points);
         }
-        str_dart3_status = "3: " + str_dart3_multiplier + " " + str_dart3_points;
-        TextView text_dart_3 = findViewById(R.id.text_dart_3);
-        text_dart_3.setText(str_dart3_status);
+        str_dart3_status = " " + str_dart3_multiplier + " " + str_dart3_points;
+        TextView text_dart_3_status = findViewById(R.id.dart_3_status);
+        text_dart_3_status.setText(str_dart3_status);
     }
 
     private void errorSignal(String error_source) {
