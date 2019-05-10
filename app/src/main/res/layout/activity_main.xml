@@ -9,6 +9,27 @@
     tools:context=".MainActivity">
 
 
+    <!-- Highlighting for the current team -->
+    <TextView
+        android:id="@+id/team_a_highlight"
+        android:background="@drawable/current_team_highlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/scoreA"
+        app:layout_constraintRight_toRightOf="@id/scoreA"
+        app:layout_constraintTop_toTopOf="@id/teamA"
+        />
+
+    <TextView
+        android:id="@+id/team_b_highlight"
+        android:background="@drawable/current_team_highlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/scoreB"
+        app:layout_constraintRight_toRightOf="@id/scoreB"
+        app:layout_constraintTop_toTopOf="@id/teamB"
+        />
+
     <!-- Team A label and score -->
     <TextView
         android:id="@+id/teamA"
@@ -30,7 +51,6 @@
         android:paddingEnd="10dp"
         android:text="@string/starting_score"
         android:textSize="80sp"
-        android:background="#ccff90"
         app:layout_constraintLeft_toLeftOf="@id/teamA"
         app:layout_constraintRight_toRightOf="@id/teamA"
         app:layout_constraintTop_toBottomOf="@id/teamA"

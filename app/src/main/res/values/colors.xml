@@ -17,4 +17,5 @@
     <color name="post_color">#90caf9</color>
     <color name="reset_color">#ff9800</color>
     <color name="game_background_color">#D0FFFFFF</color>
+    <color name="current_team_highlight_color">#ccff90</color>
 </resources>

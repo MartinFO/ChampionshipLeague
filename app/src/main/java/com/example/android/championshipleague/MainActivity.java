@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private int int_teamA_score = 301;
     private int int_teamB_score = 301;
     private boolean bool_advanced_by_number = false;
+    private boolean team_a_has_busted = false;
+    private boolean team_b_has_busted = false;
 
 
 
@@ -41,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         // Disable the Zero key
         Button button_zero = findViewById(R.id.button_0);
         button_zero.setEnabled(false);
+        // Set the highlights for Team A to take the first turn
+        TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+        teamA_highlight.setVisibility(View.VISIBLE);
+        TextView teamB_highlight = findViewById(R.id.team_b_highlight);
+        teamB_highlight.setVisibility(View.INVISIBLE);
         // Set the highlight for dart 1
         TextView text_highlight_primary_1 = findViewById(R.id.primary_highlight_1);
         text_highlight_primary_1.setVisibility(View.VISIBLE);
@@ -90,8 +97,11 @@ public class MainActivity extends AppCompatActivity {
                                 teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamB_score));
                                 // Let Team A take the first turn
                                 current_team_string = "Team A";
-                                teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-                                teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+                                // Set the team highlighting to show that Team A is the current team
+                                TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+                                TextView teamB_highlight = findViewById(R.id.team_b_highlight);
+                                teamA_highlight.setVisibility(View.VISIBLE);
+                                teamB_highlight.setVisibility(View.INVISIBLE);
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -1100,7 +1110,10 @@ public class MainActivity extends AppCompatActivity {
         TextView teamA_score_TextView = findViewById(R.id.scoreA);
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView = findViewById(R.id.scoreB);
-
+        // teamA_highlight is the highlight background when Team A is the current team
+        TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+        // teamB_highlight is the highlight background when Team B is the current team
+        TextView teamB_highlight = findViewById(R.id.team_b_highlight);
         // bust_textview and bust_background_textview are used to indicate that the darts total exceeds the player's score
         TextView bust_textview = findViewById(R.id.bust);
         TextView bust_background_textview = findViewById(R.id.bust_background);
@@ -1124,9 +1137,8 @@ public class MainActivity extends AppCompatActivity {
                 if (int_temp_score < 0) { // Team A has busted
                     bust_textview.setVisibility(View.VISIBLE);
                     bust_background_textview.setVisibility(View.VISIBLE);
+                    team_a_has_busted = true;
                     current_team_string = "Team B";
-                    teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-                    teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
                 } else { // Team A has a score greater than zero
                     int_teamA_score = int_teamA_score - int_total_score;
@@ -1143,9 +1155,8 @@ public class MainActivity extends AppCompatActivity {
                 if (int_temp_score < 0) { // Team B has busted
                     bust_textview.setVisibility(View.VISIBLE);
                     bust_background_textview.setVisibility(View.VISIBLE);
+                    team_b_has_busted = true;
                     current_team_string = "Team A";
-                    teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-                    teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
 
                 } else { // Team B has a score greater than zero
                     int_teamB_score = int_teamB_score - int_total_score;
@@ -1165,13 +1176,13 @@ public class MainActivity extends AppCompatActivity {
             // Switch to the other team
             if (TextUtils.equals(current_team_string, "Team A")) {
                 current_team_string = "Team B";
-                teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-                teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+                teamA_highlight.setVisibility(View.INVISIBLE);
+                teamB_highlight.setVisibility(View.VISIBLE);
 
             } else if (TextUtils.equals(current_team_string, "Team B")) {
                 current_team_string = "Team A";
-                teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-                teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+                teamA_highlight.setVisibility(View.VISIBLE);
+                teamB_highlight.setVisibility(View.INVISIBLE);
 
             } else {
                 errorSignal("press_Post_b");
@@ -1195,6 +1206,10 @@ public class MainActivity extends AppCompatActivity {
         TextView teamA_score_TextView = findViewById(R.id.scoreA);
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView = findViewById(R.id.scoreB);
+        // teamA_highlight is the highlight background when Team A is the current team
+        TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+        // teamB_highlight is the highlight background when Team B is the current team
+        TextView teamB_highlight = findViewById(R.id.team_b_highlight);
 
         // Initialize variables for current turn
         initializeVariablesForNextTurn();
@@ -1203,13 +1218,13 @@ public class MainActivity extends AppCompatActivity {
         // Switch to the other team
         if (TextUtils.equals(current_team_string, "Team A")) {
             current_team_string = "Team B";
-            teamB_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-            teamA_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+            teamA_highlight.setVisibility(View.INVISIBLE);
+            teamB_highlight.setVisibility(View.VISIBLE);
 
         } else if (TextUtils.equals(current_team_string, "Team B")) {
             current_team_string = "Team A";
-            teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-            teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+            teamA_highlight.setVisibility(View.VISIBLE);
+            teamB_highlight.setVisibility(View.INVISIBLE);
 
         } else {
             errorSignal("press_AB");
@@ -1218,8 +1233,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pressReset(View view) {
+        // teamA_highlight is the highlight background when Team A is the current team
+        TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+        // teamB_highlight is the highlight background when Team B is the current team
+        TextView teamB_highlight = findViewById(R.id.team_b_highlight);
         // Initialize variables for current turn
         initializeVariablesForNextTurn();
+        // If one of the teams has busted, switch the team highlighting
+        if (team_a_has_busted) {
+            teamA_highlight.setVisibility(View.INVISIBLE);
+            teamB_highlight.setVisibility(View.VISIBLE);
+            team_a_has_busted = false;
+        }
+        if (team_b_has_busted) {
+            teamA_highlight.setVisibility(View.VISIBLE);
+            teamB_highlight.setVisibility(View.INVISIBLE);
+            team_b_has_busted = false;
+        }
         // Display initialized darts status
         displayDartsStatusLine();
     }
@@ -1229,9 +1259,13 @@ public class MainActivity extends AppCompatActivity {
         TextView teamA_score_TextView;
         // teamB_score_TextView is Team B's score view
         TextView teamB_score_TextView;
+        // teamA_highlight is the highlight background when Team A is the current team
+        TextView teamA_highlight = findViewById(R.id.team_a_highlight);
+        // teamB_highlight is the highlight background when Team B is the current team
+        TextView teamB_highlight = findViewById(R.id.team_b_highlight);
 
 
-        // Initialize variables for current turn
+        // Initialize variables for the first turn
         initializeVariablesForNextTurn();
         // Display initialized darts status
         displayDartsStatusLine();
@@ -1246,8 +1280,8 @@ public class MainActivity extends AppCompatActivity {
         teamB_score_TextView.setText(String.format(Locale.ENGLISH, "%d", int_teamB_score));
         // Let Team A take the first turn
         current_team_string = "Team A";
-        teamA_score_TextView.setBackgroundColor(Color.parseColor("#ccff90"));
-        teamB_score_TextView.setBackgroundColor(Color.parseColor("#00ccff90"));
+        teamA_highlight.setVisibility(View.VISIBLE);
+        teamB_highlight.setVisibility(View.INVISIBLE);
 
     }
 
